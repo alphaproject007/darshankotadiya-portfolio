@@ -1,0 +1,14 @@
+{
+  "sectionConfigs": {
+    "experience": true,
+    "professionalProjects": true,
+    "skills": true,
+    "mobileEngineering": true,
+    "personalProjects": false,
+    "blog": false,
+    "certifications": false,
+    "testimonials": false,
+    "githubActivity": false,
+    "achievements": false
+  }
+}
