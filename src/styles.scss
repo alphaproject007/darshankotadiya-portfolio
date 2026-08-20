@@ -13,6 +13,10 @@
     sans-serif;
 }
 
+:root.light {
+  color-scheme: light;
+}
+
 html,
 body {
   margin: 0;
@@ -24,6 +28,11 @@ body {
   color: #e5e7eb;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+
+:root.light body {
+  background: #ffffff;
+  color: #1f2937;
 }
 
 button,
