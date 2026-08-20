@@ -1,38 +1,53 @@
-<nav class="sticky top-0 z-50 border-b bg-neutral-900 text-neutral-100 dark:border-neutral-800 dark:bg-neutral-950 light:bg-white light:text-neutral-900 light:border-neutral-200">
+<nav
+  class="sticky top-0 z-50 border-b backdrop-blur-xl"
+  style="
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    border-color: var(--color-border);
+  "
+>
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="flex h-16 items-center justify-between">
-      <!-- Logo / Home link -->
-      <div class="flex-shrink-0">
-        <a routerLink="/" class="font-bold text-lg hover:opacity-80 transition-opacity">
+      <!-- Logo -->
+      <div class="shrink-0">
+        <a
+          routerLink="/"
+          class="text-lg font-bold transition-opacity hover:opacity-80"
+          [style.color]="'var(--color-text)'"
+        >
           <span class="hidden sm:inline">Darshan Kotadiya</span>
           <span class="sm:hidden">DK</span>
         </a>
       </div>
 
       <!-- Desktop Navigation -->
-      <div class="hidden md:flex md:items-center md:space-x-1">
+      <nav class="hidden md:flex md:items-center md:gap-1" aria-label="Primary navigation">
         <a
           *ngFor="let item of navItems"
           [routerLink]="item.route"
           routerLinkActive="opacity-100"
           [routerLinkActiveOptions]="{ exact: item.route === '/' }"
-          class="px-3 py-2 text-sm opacity-70 hover:opacity-100 transition-opacity"
+          class="rounded-lg px-3 py-2 text-sm opacity-65 transition-all duration-200 hover:opacity-100"
+          [style.color]="'var(--color-text)'"
         >
           {{ item.label }}
         </a>
-      </div>
+      </nav>
 
-      <!-- Theme Toggle and Mobile Menu -->
-      <div class="flex items-center space-x-3">
+      <!-- Theme + Mobile Menu -->
+      <div class="flex items-center gap-2">
         <!-- Theme Toggle -->
         <button
           type="button"
           (click)="cycleTheme()"
           [attr.aria-label]="getThemeTitle()"
           [attr.title]="getThemeTitle()"
-          class="group relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-white/[0.04] text-neutral-300 transition-all duration-300 ease-out hover:border-blue-400/40 hover:bg-blue-500/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
+          class="group flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ease-out hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
+          [style.backgroundColor]="'var(--color-hover)'"
+          [style.borderColor]="'var(--color-border)'"
+          [style.color]="'var(--color-text)'"
         >
-          <span class="relative flex h-5 w-5 items-center justify-center">
+          <span class="flex h-5 w-5 items-center justify-center">
             @if (themeService.themeMode() === 'dark') {
               <svg
                 class="h-5 w-5 animate-theme-in"
@@ -69,34 +84,65 @@
 
         <!-- Mobile Menu Toggle -->
         <button
-          (click)="toggleMobileMenu()"
-          [attr.aria-label]="mobileMenuOpen() ? 'Close navigation menu' : 'Open navigation menu'"
-          class="md:hidden px-2 py-2 text-lg opacity-70 hover:opacity-100 transition-opacity"
           type="button"
+          (click)="toggleMobileMenu()"
+          [attr.aria-label]="
+            mobileMenuOpen()
+              ? 'Close navigation menu'
+              : 'Open navigation menu'
+          "
+          class="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60 md:hidden"
+          [style.color]="'var(--color-text)'"
+          [style.backgroundColor]="'var(--color-hover)'"
         >
-          {{ mobileMenuOpen() ? '✕' : '≡' }}
+          @if (mobileMenuOpen()) {
+            <svg
+              class="h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              aria-hidden="true"
+            >
+              <path stroke-linecap="round" d="M6 6L18 18M18 6L6 18" />
+            </svg>
+          } @else {
+            <svg
+              class="h-5 w-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              aria-hidden="true"
+            >
+              <path stroke-linecap="round" d="M4 7H20M4 12H20M4 17H20" />
+            </svg>
+          }
         </button>
       </div>
     </div>
 
-    <!-- Mobile Navigation Menu -->
-    <div
-      *ngIf="mobileMenuOpen()"
-      class="md:hidden border-t border-neutral-700 dark:border-neutral-700 light:border-neutral-200"
-    >
-      <div class="space-y-1 px-2 py-3">
-        <a
-          *ngFor="let item of navItems"
-          [routerLink]="item.route"
-          (click)="onNavItemClick()"
-          routerLinkActive="opacity-100 bg-neutral-800 dark:bg-neutral-800 light:bg-neutral-100"
-          [routerLinkActiveOptions]="{ exact: item.route === '/' }"
-          class="block px-3 py-2 rounded text-sm opacity-70 hover:opacity-100 transition-opacity"
-        >
-          {{ item.label }}
-        </a>
+    <!-- Mobile Navigation -->
+    @if (mobileMenuOpen()) {
+      <div
+        class="border-t py-3 md:hidden"
+        [style.borderColor]="'var(--color-border)'"
+      >
+        <div class="space-y-1">
+          <a
+            *ngFor="let item of navItems"
+            [routerLink]="item.route"
+            (click)="onNavItemClick()"
+            routerLinkActive="opacity-100"
+            [routerLinkActiveOptions]="{ exact: item.route === '/' }"
+            class="block rounded-lg px-3 py-2.5 text-sm opacity-65 transition-all duration-200 hover:opacity-100"
+            [style.color]="'var(--color-text)'"
+            [style.backgroundColor]="'var(--color-hover)'"
+          >
+            {{ item.label }}
+          </a>
+        </div>
       </div>
-    </div>
+    }
   </div>
 </nav>
-

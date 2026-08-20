@@ -2,7 +2,15 @@
 @use 'tailwindcss';
 
 :root {
-  color-scheme: dark;
+  --color-bg: #ffffff;
+  --color-surface: rgba(255, 255, 255, 0.82);
+  --color-text: #0f172a;
+  --color-text-muted: #64748b;
+  --color-border: rgba(15, 23, 42, 0.1);
+  --color-hover: rgba(15, 23, 42, 0.05);
+
+  color-scheme: light;
+
   font-family:
     Inter,
     ui-sans-serif,
@@ -13,38 +21,32 @@
     sans-serif;
 }
 
-:root.light {
-  color-scheme: light;
+:root.dark {
+  --color-bg: #050816;
+  --color-surface: rgba(5, 8, 22, 0.84);
+  --color-text: #e5e7eb;
+  --color-text-muted: #94a3b8;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-hover: rgba(255, 255, 255, 0.06);
+
+  color-scheme: dark;
 }
 
 html,
 body {
   margin: 0;
   min-height: 100%;
+  background: var(--color-bg);
+  color: var(--color-text);
+  scroll-behavior: smooth;
 }
 
 body {
-  background: #050816;
-  color: #e5e7eb;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-}
-
-:root.light body {
-  background: #ffffff;
-  color: #1f2937;
 }
 
 button,
 a {
   -webkit-tap-highlight-color: transparent;
-}
-
-/* Respect prefers-reduced-motion */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
 }
