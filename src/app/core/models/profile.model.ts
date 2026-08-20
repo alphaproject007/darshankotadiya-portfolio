@@ -4,5 +4,7 @@ export interface Profile {
   bio: string;
   email: string;
   location: string;
+  availability?: string;
   imageUrl?: string;
 }
+
