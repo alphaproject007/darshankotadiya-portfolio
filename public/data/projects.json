@@ -1,1 +1,79 @@
-[]
+[
+  {
+    "id": "gemba-concepts",
+    "title": "Gemba Concepts Pvt. Ltd.",
+    "description": "Angular applications for configurable business workflows, reusable UI components, dynamic forms, and enterprise operations support.",
+    "shortDescription": "Configurable business workflows and enterprise operations.",
+    "technologies": [
+      "Angular",
+      "Angular Material",
+      "RxJS",
+      "Reactive Forms",
+      "REST APIs",
+      "JWT",
+      "RBAC"
+    ],
+    "period": {
+      "start": "2025-06",
+      "end": "2026-04"
+    },
+    "highlights": [
+      "Reusable UI components and dynamic forms for workflow-heavy business processes.",
+      "Shared data tables and interface patterns for enterprise operations dashboards.",
+      "Contribution to production support, requirements collaboration, and sprint-ready feature delivery."
+    ],
+    "category": "web"
+  },
+  {
+    "id": "swan-softweb-solutions",
+    "title": "Swan Softweb Solutions",
+    "description": "Role-based student, teacher, parent, and admin workflows with routing, guards, reusable UI, and secure API-based experiences.",
+    "shortDescription": "Role-based academic workflows and responsive interfaces.",
+    "technologies": [
+      "Angular",
+      "Ionic",
+      "TypeScript",
+      "Angular Material",
+      "REST APIs",
+      "JWT",
+      "RBAC",
+      "RxJS"
+    ],
+    "period": {
+      "start": "2024-03",
+      "end": "2025-04"
+    },
+    "highlights": [
+      "Modernization work across Angular 14 to Angular 16 application architecture.",
+      "Route guards, reusable responsive components, and role-based UI behavior for varied user journeys.",
+      "Secure authentication and API-driven experiences across stakeholder workflows."
+    ],
+    "category": "hybrid"
+  },
+  {
+    "id": "tadvid-info-technologies",
+    "title": "Tadvid Info Technologies",
+    "description": "Dashboards, alerts, reusable components, and workflow-driven features powered by weather, soil, and crop data.",
+    "shortDescription": "Dashboards, alerts, and workflow-driven agricultural features.",
+    "technologies": [
+      "Angular",
+      "Ionic",
+      "TypeScript",
+      "JavaScript",
+      "REST APIs",
+      "Push Notifications",
+      "Offline Capabilities"
+    ],
+    "period": {
+      "start": "2022-05",
+      "end": "2024-02"
+    },
+    "highlights": [
+      "Dashboards and alerting interfaces for operational monitoring and data analysis.",
+      "Offline-capable mobile workflows and API communication for field-oriented use cases.",
+      "Support for deployment, maintenance, and debugging of live application features."
+    ],
+    "category": "mobile"
+  }
+]
+

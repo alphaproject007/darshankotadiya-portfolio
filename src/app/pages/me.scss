@@ -1,22 +1,46 @@
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+:host {
+  display: block;
+}
+
+.timeline-current {
+  animation: timeline-pulse 2.4s ease-in-out infinite;
+}
+
+.timeline-end-marker {
+  animation: timeline-end-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes timeline-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 4px var(--color-surface),
+      0 0 0 0 rgba(59, 130, 246, 0.3);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  50% {
+    box-shadow:
+      0 0 0 4px var(--color-surface),
+      0 0 0 7px rgba(59, 130, 246, 0.08);
   }
 }
 
-.animate-fade-in {
-  animation: fade-in 0.6s ease-out;
+@keyframes timeline-end-pulse {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: translateX(-50%) scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.12);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-fade-in {
+  .timeline-current,
+  .timeline-end-marker {
     animation: none;
-    opacity: 1;
-    transform: translateY(0);
   }
 }

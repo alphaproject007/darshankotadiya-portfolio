@@ -2,6 +2,8 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PortfolioDataService } from '../core/services/portfolio-data.service';
 import { Profile } from '../core/models/profile.model';
+import { Experience } from '../core/models/experience.model';
+import { Project } from '../core/models/project.model';
 
 @Component({
   selector: 'app-me',
@@ -13,6 +15,8 @@ import { Profile } from '../core/models/profile.model';
 export class MeComponent implements OnInit {
   private readonly portfolioData = inject(PortfolioDataService);
   protected profile = signal<Profile | null>(null);
+  protected experience = signal<Experience[]>([]);
+  protected projects = signal<Project[]>([]);
   protected isLoading = signal(true);
 
   readonly techStack = ['Angular', 'TypeScript', 'Ionic', 'Java', 'Spring Boot'];
@@ -93,6 +97,27 @@ export class MeComponent implements OnInit {
         this.isLoading.set(false);
       }
     });
+
+    this.portfolioData.getExperiences().subscribe(data => {
+      this.experience.set(data);
+    });
+
+    this.portfolioData.getProjects().subscribe(data => {
+      this.projects.set(data);
+    });
+  }
+
+  protected formatPeriodRange(period: { start: string; end?: string | null }): string {
+    const formatMonthYear = (value: string): string => {
+      const [year, month] = value.split('-');
+      const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const monthIndex = Number(month) - 1;
+      return `${monthLabels[monthIndex] ?? month} ${year}`;
+    };
+
+    const start = formatMonthYear(period.start);
+    const end = period.end ? formatMonthYear(period.end) : 'Present';
+    return `${start} – ${end}`;
   }
 
   protected scrollToSection(sectionId: string): void {
