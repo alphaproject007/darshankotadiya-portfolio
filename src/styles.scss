@@ -2,12 +2,16 @@
 @use 'tailwindcss';
 
 :root {
-  --color-bg: #ffffff;
-  --color-surface: rgba(255, 255, 255, 0.82);
+  --color-bg: #f5f7fb;
+  --color-surface: rgba(255, 255, 255, 0.88);
+  --color-surface-solid: #ffffff;
   --color-text: #0f172a;
   --color-text-muted: #64748b;
-  --color-border: rgba(15, 23, 42, 0.1);
-  --color-hover: rgba(15, 23, 42, 0.05);
+  --color-border: rgba(15, 23, 42, 0.08);
+  --color-hover: rgba(37, 99, 235, 0.06);
+  --color-primary: #2563eb;
+  --color-primary-soft: rgba(37, 99, 235, 0.08);
+  --color-secondary-soft: rgba(124, 58, 237, 0.06);
 
   color-scheme: light;
 
@@ -23,11 +27,15 @@
 
 :root.dark {
   --color-bg: #050816;
-  --color-surface: rgba(5, 8, 22, 0.84);
+  --color-surface: rgba(7, 12, 30, 0.82);
+  --color-surface-solid: #080d1d;
   --color-text: #e5e7eb;
   --color-text-muted: #94a3b8;
-  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border: rgba(255, 255, 255, 0.09);
   --color-hover: rgba(255, 255, 255, 0.06);
+  --color-primary: #3b82f6;
+  --color-primary-soft: rgba(59, 130, 246, 0.10);
+  --color-secondary-soft: rgba(139, 92, 246, 0.10);
 
   color-scheme: dark;
 }
@@ -36,9 +44,24 @@ html,
 body {
   margin: 0;
   min-height: 100%;
-  background: var(--color-bg);
+  background:
+    radial-gradient(
+      circle at 85% 10%,
+      var(--color-primary-soft),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 10% 85%,
+      var(--color-secondary-soft),
+      transparent 25%
+    ),
+    var(--color-bg);
   color: var(--color-text);
   scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 5rem;
 }
 
 body {
