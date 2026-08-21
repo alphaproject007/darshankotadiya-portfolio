@@ -1,6 +1,6 @@
 <!-- ==================== HERO ==================== -->
 
-<section class="relative overflow-hidden py-12 sm:py-16 lg:py-20">
+<section id="top" class="relative overflow-hidden py-12 sm:py-16 lg:py-20">
   <div
     class="pointer-events-none absolute -right-40 -top-40 h-80 w-80 rounded-full bg-blue-500/5 blur-3xl"
   ></div>
@@ -12,45 +12,48 @@
   <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     @if (isLoading()) {
       <div class="flex h-96 items-center justify-center">
-        <div class="text-[var(--color-text-muted)]">
-          Loading...
-        </div>
+        <div class="text-[var(--color-text-muted)]">Loading...</div>
       </div>
     } @else if (profile()) {
-      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-
-        <!-- Hero content -->
-        <div class="animate-fade-in space-y-7">
-          <div class="space-y-4">
-            <h1
-              class="text-4xl font-bold tracking-tight text-[var(--color-text)] sm:text-5xl lg:text-6xl"
+      <div class="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+        <div class="animate-fade-in space-y-6">
+          <div class="flex flex-wrap items-center gap-3">
+            <span
+              class="inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-blue-500 dark:text-blue-400"
+              [style.borderColor]="'var(--color-border)'"
+              [style.backgroundColor]="'var(--color-primary-soft)'"
             >
+              {{ profile()!.availability ?? 'Open to opportunities' }}
+            </span>
+          </div>
+
+          <div class="space-y-4">
+            <p class="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
+              Hello, I’m
+            </p>
+
+            <h1 class="text-4xl font-black tracking-[-0.04em] text-[var(--color-text)] sm:text-5xl lg:text-[4rem]">
               {{ profile()!.name }}
             </h1>
 
-            <p class="text-xl font-medium text-blue-500 dark:text-blue-400">
+            <p class="text-lg font-semibold text-blue-500 dark:text-blue-400 sm:text-xl">
               {{ profile()!.title }}
             </p>
           </div>
 
-          <p
-            class="max-w-2xl text-lg leading-relaxed text-[var(--color-text-muted)]"
-          >
+          <p class="max-w-xl text-base leading-7 text-[var(--color-text-muted)]">
             {{ profile()!.bio }}
           </p>
 
-          <!-- Core technologies -->
           <div class="space-y-3">
-            <p
-              class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
-            >
-              Core Technologies
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+              Core stack
             </p>
 
-            <div class="flex flex-wrap gap-2">
+            <div class="flex max-w-full flex-wrap gap-2">
               @for (tech of techStack; track tech) {
                 <span
-                  class="inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium text-[var(--color-text)] transition-colors duration-200"
+                  class="inline-flex items-center rounded-full border px-3 py-1.5 text-xs font-medium text-[var(--color-text)]"
                   [style.borderColor]="'var(--color-border)'"
                   [style.backgroundColor]="'var(--color-surface)'"
                 >
@@ -60,95 +63,85 @@
             </div>
           </div>
 
-          <!-- Metadata -->
-          <div class="flex flex-wrap gap-6 pt-2 text-sm">
-            <div class="flex items-center gap-2">
-              <span class="text-[var(--color-text-muted)]">📍</span>
-
-              <span class="text-[var(--color-text-muted)]">
-                {{ profile()!.location }}
-              </span>
-            </div>
-
-            @if (profile()!.availability) {
-              <div class="flex items-center gap-2">
-                <span
-                  class="inline-flex h-2 w-2 rounded-full bg-emerald-500"
-                ></span>
-
-                <span class="text-[var(--color-text-muted)]">
-                  {{ profile()!.availability }}
-                </span>
-              </div>
-            }
-          </div>
-
-          <!-- Actions -->
-          <div class="flex flex-wrap gap-4 pt-2 sm:pt-4">
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
             <button
               type="button"
               (click)="scrollToSection('projects')"
-              class="inline-flex items-center justify-center rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2"
-              [style.--tw-ring-offset-color]="'var(--color-bg)'"
+              aria-label="View projects"
+              class="inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 sm:w-auto"
             >
               View My Work
             </button>
 
             <button
               type="button"
-              (click)="scrollToSection('resume')"
-              class="inline-flex items-center justify-center rounded-lg border px-6 py-3 font-semibold text-[var(--color-text)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[var(--color-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2"
+              [routerLink]="'/resume'"
+              aria-label="View resume"
+              class="inline-flex w-full items-center justify-center rounded-xl border px-5 py-3 text-sm font-semibold text-[var(--color-text)] transition-all duration-200 hover:bg-[var(--color-hover)] sm:w-auto"
               [style.borderColor]="'var(--color-border)'"
-              [style.--tw-ring-offset-color]="'var(--color-bg)'"
             >
               View Resume
             </button>
           </div>
         </div>
 
-        <!-- Hero visual -->
-        <div class="hidden items-center justify-center lg:flex">
-          <div
-            class="relative h-[22rem] w-[22rem] overflow-hidden rounded-2xl border"
-            [style.borderColor]="'var(--color-border)'"
-            [style.backgroundColor]="'var(--color-surface)'"
-          >
+        <div class="animate-fade-in">
+          <div class="mx-auto max-w-[28rem]">
             <div
-              class="absolute inset-4 rounded-xl border"
+              class="relative overflow-hidden rounded-[2rem] border p-4 shadow-[0_20px_60px_rgba(59,130,246,0.08)]"
               [style.borderColor]="'var(--color-border)'"
-            ></div>
+              [style.backgroundColor]="'var(--color-surface)'"
+            >
+              <div class="absolute inset-x-12 top-0 h-24 rounded-full bg-gradient-to-r from-blue-500/15 via-purple-500/15 to-transparent blur-2xl"></div>
 
-            <div
-              class="absolute inset-8 rounded-lg border"
-              [style.borderColor]="'var(--color-border)'"
-            ></div>
-
-            <div
-              class="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-violet-500/10"
-            ></div>
-
-            <div class="absolute inset-0 flex items-center justify-center">
-              <div class="space-y-4 text-center font-mono text-sm">
-                <div class="text-blue-400">
-                  &lt;developer&gt;
+              <div class="relative rounded-[1.5rem] border bg-gradient-to-br from-slate-900/80 via-slate-800/70 to-blue-950/90 p-6 text-slate-100"
+                [style.borderColor]="'var(--color-border)'"
+              >
+                <div class="flex items-start justify-between text-[10px] font-medium uppercase tracking-[0.2em] text-slate-300">
+                  <span>Portfolio</span>
+                  <span>Angular</span>
                 </div>
 
-                <div class="pl-4 text-violet-400">
-                  @angular @typescript
+                <div class="mt-8 flex items-center justify-center">
+                  <div class="flex h-28 w-28 items-center justify-center rounded-full border border-white/15 bg-gradient-to-br from-blue-500/30 via-purple-500/20 to-slate-700/30 text-3xl font-bold text-white shadow-[0_0_30px_rgba(96,165,250,0.3)]">
+                    DK
+                  </div>
                 </div>
 
-                <div class="pl-4 text-emerald-400">
-                  fullStack enabled
+                <div class="mt-8 flex flex-wrap justify-center gap-2 text-[10px] font-medium uppercase tracking-[0.12em] text-slate-200">
+                  <span class="rounded-full border border-white/10 bg-white/5 px-2.5 py-1">Angular</span>
+                  <span class="rounded-full border border-white/10 bg-white/5 px-2.5 py-1">TypeScript</span>
+                  <span class="rounded-full border border-white/10 bg-white/5 px-2.5 py-1">Ionic</span>
                 </div>
 
-                <div class="text-blue-400">
-                  &lt;/developer&gt;
+                <div class="mt-6 grid grid-cols-2 gap-2 text-[11px] text-slate-300">
+                  <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
+                    <div class="text-slate-400">Stack</div>
+                    <div class="mt-1 font-medium text-slate-100">Frontend</div>
+                  </div>
+                  <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
+                    <div class="text-slate-400">Focus</div>
+                    <div class="mt-1 font-medium text-slate-100">Web + Mobile</div>
+                  </div>
                 </div>
               </div>
             </div>
+
+            <div class="mt-4 grid gap-3 sm:grid-cols-2">
+              <div class="flex items-center gap-3 rounded-2xl border px-3 py-2.5 text-sm text-[var(--color-text)]" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/10 text-blue-500 dark:text-blue-400">📍</span>
+                <span>{{ profile()!.location }}</span>
+              </div>
+
+              @if (profile()!.availability) {
+                <div class="flex items-center gap-3 rounded-2xl border px-3 py-2.5 text-sm text-[var(--color-text)]" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
+                  <span class="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" aria-hidden="true"></span>
+                  <span>{{ profile()!.availability }}</span>
+                </div>
+              }
+            </div>
           </div>
         </div>
-
       </div>
     }
   </div>
@@ -158,53 +151,49 @@
 <!-- ==================== ENGINEERING SNAPSHOT ==================== -->
 
 <section
-  id="snapshot"
-  class="border-y py-14 sm:py-16"
-  [style.borderColor]="'var(--color-border)'"
-  [style.backgroundColor]="'var(--color-surface)'"
+ id="snapshot"
+ class="border-y py-12 sm:py-16"
+ [style.borderColor]="'var(--color-border)'"
+ [style.backgroundColor]="'var(--color-surface)'"
 >
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="mb-8 max-w-2xl">
-      <p
-        class="text-sm font-semibold uppercase tracking-[0.24em] text-blue-500 dark:text-blue-400"
-      >
-        Engineering Snapshot
-      </p>
+ <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+   <div class="mb-8 max-w-2xl">
+     <p class="text-sm font-semibold uppercase tracking-[0.24em] text-blue-500 dark:text-blue-400">
+       Engineering Snapshot
+     </p>
 
-      <h2
-        class="mt-3 text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl"
-      >
-        Engineering Snapshot
-      </h2>
-    </div>
+     <h2 class="mt-3 text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">
+       Engineering Snapshot
+     </h2>
+   </div>
 
-    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">
-      @for (card of snapshotCards; track card.value) {
-        <article
-          class="animate-card-in border p-5 transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/40 hover:bg-[var(--color-hover)] lg:rounded-none lg:border-y lg:border-l lg:first:rounded-l-2xl lg:last:rounded-r-2xl lg:last:border-r"
-          [style.borderColor]="'var(--color-border)'"
-          [style.backgroundColor]="'var(--color-surface)'"
-        >
-          <div
-            class="text-sm font-medium uppercase tracking-[0.18em] text-[var(--color-text-muted)]"
-          >
-            {{ card.detail }}
-          </div>
+   <div class="overflow-hidden rounded-[1.75rem] border" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface-solid)'">
+     <div class="grid gap-0 md:grid-cols-2 xl:grid-cols-4">
+       @for (card of snapshotCards; track card.value) {
+         <article
+           class="animate-card-in border-b border-r p-5 transition-all duration-300 hover:bg-[var(--color-hover)] last:border-b-0 md:last:border-r-0 xl:last:border-r-0"
+           [style.borderColor]="'var(--color-border)'"
+         >
+           <div class="flex items-center gap-3">
+             <span class="flex h-9 w-9 items-center justify-center rounded-xl border bg-blue-500/10 text-blue-500 dark:text-blue-400" [style.borderColor]="'var(--color-border)'">✦</span>
+             <div class="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+               {{ card.detail }}
+             </div>
+           </div>
 
-          <div
-            class="mt-3 text-2xl font-semibold tracking-tight text-[var(--color-text)]"
-          >
-            {{ card.value }}
-          </div>
-        </article>
-      }
-    </div>
-  </div>
+           <div class="mt-4 text-2xl font-bold tracking-tight text-[var(--color-text)]">
+             {{ card.value }}
+           </div>
+         </article>
+       }
+     </div>
+   </div>
+ </div>
 </section>
 
 <!-- ==================== ABOUT ==================== -->
 
-<section id="about" class="py-16 sm:py-20">
+<section id="about" class="py-12 sm:py-20">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
 
@@ -224,28 +213,20 @@
           </h2>
         </div>
 
-        <div
-          class="space-y-4 text-base leading-7 text-[var(--color-text-muted)]"
-        >
+        <div class="space-y-4 text-base leading-7 text-[var(--color-text-muted)]">
           <p>
-            {{
-              profile()?.bio ??
-                'I build modern frontend and mobile applications with a strong engineering foundation in TypeScript, JavaScript, Ionic, RxJS, and REST APIs.'
-            }}
+            {{ profile()?.bio ?? 'I build responsive, component-driven interfaces with Angular and TypeScript for enterprise web and hybrid mobile applications.' }}
           </p>
 
           <p>
-            My work centers on reusable components, responsive interfaces,
-            authentication and authorization, API integration, reactive forms,
-            and state-driven experiences across enterprise web and mobile
-            applications.
+            Focus areas: reusable UI components, dynamic forms, REST/API integrations, authentication & authorization, and cross-platform delivery.
           </p>
         </div>
       </div>
 
       <!-- Core strengths -->
       <div
-        class="rounded-2xl border p-6 transition-all duration-300 hover:border-blue-400/30"
+        class="rounded-[1.75rem] border p-6 shadow-[0_12px_30px_rgba(15,23,42,0.04)] transition-all duration-300 hover:border-blue-400/30"
         [style.borderColor]="'var(--color-border)'"
         [style.backgroundColor]="'var(--color-surface)'"
       >
@@ -354,12 +335,13 @@
                   </div>
 
                   <time
-                    class="w-fit shrink-0 rounded-full border px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--color-text-muted)]"
+                                      class="w-fit shrink-0 rounded-full border px-3 py-1 text-xs font-medium uppercase tracking-[0.14em] text-[var(--color-text-muted)]"
                     [style.borderColor]="'var(--color-border)'"
                     [style.backgroundColor]="'var(--color-bg)'"
-                  >
-                    {{ formatPeriodRange(job.period) }}
-                  </time>
+                                      aria-label="employment period"
+                                    >
+                                      {{ formatPeriodRange(job.period) }}
+                                    </time>
                 </div>
 
                 <!-- Most Recent -->
@@ -382,9 +364,7 @@
 
                 <!-- Highlights -->
                 @if (job.highlights?.length) {
-                  <ul
-                    class="mt-4 space-y-2 text-sm leading-6 text-[var(--color-text-muted)]"
-                  >
+                  <ul class="mt-4 space-y-2 text-sm leading-6 text-[var(--color-text-muted)]" aria-label="role highlights">
                     @for (highlight of job.highlights; track highlight) {
                       <li class="flex items-start gap-2">
                         <span
@@ -464,7 +444,7 @@
       <div class="grid gap-6 md:grid-cols-2">
         @for (project of projects(); track project.id) {
           <article
-            class="group relative overflow-hidden rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/40 hover:bg-[var(--color-hover)]"
+            class="group relative overflow-hidden rounded-[1.5rem] border p-6 shadow-[0_10px_30px_rgba(15,23,42,0.03)] transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/40 hover:bg-[var(--color-hover)]"
             [style.borderColor]="'var(--color-border)'"
             [style.backgroundColor]="'var(--color-surface)'"
           >
@@ -555,7 +535,7 @@
     <div class="grid gap-5 md:grid-cols-2">
       @for (capability of buildCapabilities; track capability.title) {
         <article
-          class="group rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/40 hover:bg-[var(--color-hover)]"
+                  class="group h-full flex flex-col rounded-[1.5rem] border p-6 shadow-[0_10px_30px_rgba(15,23,42,0.03)] transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/40 hover:bg-[var(--color-hover)]"
           [style.borderColor]="'var(--color-border)'"
           [style.backgroundColor]="'var(--color-surface)'"
         >
@@ -574,7 +554,7 @@
           </p>
 
           <ul
-            class="space-y-2 text-sm leading-6 text-[var(--color-text-muted)]"
+                      class="mt-auto space-y-2 text-sm leading-6 text-[var(--color-text-muted)]"
           >
             @for (point of capability.points; track point) {
               <li class="flex items-start gap-2">
@@ -588,6 +568,23 @@
           </ul>
         </article>
       }
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FINAL CTA / CONTACT ==================== -->
+
+<section id="final-cta" class="py-14 sm:py-12">
+  <div class="mx-auto max-w-4xl px-3 sm:px-6 lg:px-8 text-center">
+  <div class="w-full rounded-[1.75rem] border p-5 shadow-[0_12px_30px_rgba(15,23,42,0.04)] sm:p-6" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
+      <p class="text-sm font-semibold text-[var(--color-text-muted)]">Ready to talk?</p>
+      <h3 class="mt-2 text-xl font-semibold text-[var(--color-text)]">Let's connect or view my resume</h3>
+
+      <div class="mt-4 flex flex-wrap justify-center gap-3">
+        <a routerLink="/resume" class="inline-flex items-center justify-center rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="View resume">View Resume</a>
+
+        <a routerLink="/connect" class="inline-flex items-center justify-center rounded-lg border px-4 py-2 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Contact">Contact</a>
+      </div>
     </div>
   </div>
 </section>

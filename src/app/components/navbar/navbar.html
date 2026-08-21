@@ -7,140 +7,118 @@
   "
 >
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="flex h-16 items-center justify-between">
-      <!-- Logo -->
-      <div class="shrink-0">
+    <div class="flex h-16 items-center justify-between gap-3">
+      <div class="flex min-w-0 items-center">
         <a
           routerLink="/"
-          class="text-lg font-bold transition-opacity hover:opacity-80"
+          class="text-lg font-bold tracking-tight transition-opacity hover:opacity-80"
           [style.color]="'var(--color-text)'"
+          aria-label="Go to home"
         >
-          <span class="hidden sm:inline">Darshan Kotadiya</span>
-          <span class="sm:hidden">DK</span>
+          Darshan.
         </a>
       </div>
 
-      <!-- Desktop Navigation -->
-      <nav class="hidden md:flex md:items-center md:gap-1" aria-label="Primary navigation">
+      <div class="hidden flex-1 items-center justify-center md:flex">
+        <nav class="flex items-center gap-1" aria-label="Primary navigation">
+          <button
+            *ngFor="let item of navItems"
+            type="button"
+            (click)="handleNav(item)"
+            class="rounded-full px-3 py-2 text-sm font-medium transition-all duration-200 hover:bg-[var(--color-hover)] hover:text-[var(--color-text)]"
+            [style.color]="'var(--color-text)'"
+          >
+            {{ item.label }}
+          </button>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-2">
         <a
-          *ngFor="let item of navItems"
-          [routerLink]="item.route"
-          routerLinkActive="opacity-100"
-          [routerLinkActiveOptions]="{ exact: item.route === '/' }"
-          class="rounded-lg px-3 py-2 text-sm opacity-65 transition-all duration-200 hover:opacity-100"
+          href="mailto:darshan@example.com"
+          aria-label="Email Darshan"
+          title="Email Darshan"
+          class="flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-200 hover:bg-[var(--color-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
+          [style.borderColor]="'var(--color-border)'"
           [style.color]="'var(--color-text)'"
         >
-          {{ item.label }}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" class="h-4 w-4" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6.75A2.75 2.75 0 0 1 6.75 4h10.5A2.75 2.75 0 0 1 20 6.75v10.5A2.75 2.75 0 0 1 17.25 20H6.75A2.75 2.75 0 0 1 4 17.25V6.75Zm0 0 8 6 8-6"/>
+          </svg>
         </a>
-      </nav>
 
-      <!-- Theme + Mobile Menu -->
-      <div class="flex items-center gap-2">
-        <!-- Theme Toggle -->
         <button
           type="button"
           (click)="cycleTheme()"
           [attr.aria-label]="getThemeTitle()"
           [attr.title]="getThemeTitle()"
-          class="group flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 ease-out hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
+          class="group flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300 ease-out hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
           [style.backgroundColor]="'var(--color-hover)'"
           [style.borderColor]="'var(--color-border)'"
           [style.color]="'var(--color-text)'"
         >
-          <span class="flex h-5 w-5 items-center justify-center">
+          <span class="flex h-4 w-4 items-center justify-center">
             @if (themeService.themeMode() === 'dark') {
               <svg
-                class="h-5 w-5 animate-theme-in"
+                class="h-4 w-4 animate-theme-in"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 stroke-width="1.8"
                 aria-hidden="true"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"
-                />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/>
               </svg>
             } @else {
               <svg
-                class="h-5 w-5 animate-theme-in"
+                class="h-4 w-4 animate-theme-in"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 stroke-width="1.8"
                 aria-hidden="true"
               >
-                <circle cx="12" cy="12" r="4" />
-                <path
-                  stroke-linecap="round"
-                  d="M12 2V4M12 20V22M4.93 4.93L6.35 6.35M17.65 17.65L19.07 19.07M2 12H4M20 12H22M4.93 19.07L6.35 17.65M17.65 6.35L19.07 4.93"
-                />
+                <circle cx="12" cy="12" r="4"/>
+                <path stroke-linecap="round" d="M12 2V4M12 20V22M4.93 4.93L6.35 6.35M17.65 17.65L19.07 19.07M2 12H4M20 12H22M4.93 19.07L6.35 17.65M17.65 6.35L19.07 4.93"/>
               </svg>
             }
           </span>
         </button>
 
-        <!-- Mobile Menu Toggle -->
         <button
           type="button"
           (click)="toggleMobileMenu()"
-          [attr.aria-label]="
-            mobileMenuOpen()
-              ? 'Close navigation menu'
-              : 'Open navigation menu'
-          "
-          class="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60 md:hidden"
+          [attr.aria-label]="mobileMenuOpen() ? 'Close navigation menu' : 'Open navigation menu'"
+          class="flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60 md:hidden"
           [style.color]="'var(--color-text)'"
           [style.backgroundColor]="'var(--color-hover)'"
+          [style.borderColor]="'var(--color-border)'"
         >
           @if (mobileMenuOpen()) {
-            <svg
-              class="h-5 w-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              aria-hidden="true"
-            >
-              <path stroke-linecap="round" d="M6 6L18 18M18 6L6 18" />
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path stroke-linecap="round" d="M6 6L18 18M18 6L6 18"/>
             </svg>
           } @else {
-            <svg
-              class="h-5 w-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              aria-hidden="true"
-            >
-              <path stroke-linecap="round" d="M4 7H20M4 12H20M4 17H20" />
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path stroke-linecap="round" d="M4 7H20M4 12H20M4 17H20"/>
             </svg>
           }
         </button>
       </div>
     </div>
 
-    <!-- Mobile Navigation -->
     @if (mobileMenuOpen()) {
-      <div
-        class="border-t py-3 md:hidden"
-        [style.borderColor]="'var(--color-border)'"
-      >
+      <div class="border-t py-3 md:hidden" [style.borderColor]="'var(--color-border)'">
         <div class="space-y-1">
-          <a
+          <button
             *ngFor="let item of navItems"
-            [routerLink]="item.route"
-            (click)="onNavItemClick()"
-            routerLinkActive="opacity-100"
-            [routerLinkActiveOptions]="{ exact: item.route === '/' }"
-            class="block rounded-lg px-3 py-2.5 text-sm opacity-65 transition-all duration-200 hover:opacity-100"
+            type="button"
+            (click)="handleNav(item)"
+            class="block w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-all duration-200 hover:bg-[var(--color-hover)]"
             [style.color]="'var(--color-text)'"
-            [style.backgroundColor]="'var(--color-hover)'"
           >
             {{ item.label }}
-          </a>
+          </button>
         </div>
       </div>
     }

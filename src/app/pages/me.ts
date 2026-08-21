@@ -1,5 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { PortfolioDataService } from '../core/services/portfolio-data.service';
 import { Profile } from '../core/models/profile.model';
 import { Experience } from '../core/models/experience.model';
@@ -8,7 +9,7 @@ import { Project } from '../core/models/project.model';
 @Component({
   selector: 'app-me',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './me.html',
   styleUrl: './me.scss'
 })
