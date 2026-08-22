@@ -1,3 +1,70 @@
 {
-  "categories": []
+  "categories": [
+    {
+      "name": "Frontend",
+      "skills": [
+        "Angular",
+        "Angular Material",
+        "RxJS",
+        "NgRx / State Management",
+        "TypeScript",
+        "JavaScript",
+        "HTML5",
+        "CSS3",
+        "Bootstrap",
+        "Reactive Forms",
+        "Component-Based Architecture",
+        "Responsive Design"
+      ]
+    },
+    {
+      "name": "Mobile",
+      "skills": [
+        "Ionic"
+      ]
+    },
+    {
+      "name": "Backend / API",
+      "skills": [
+        "Java (Working Knowledge)",
+        "Spring Boot (Working Knowledge)",
+        "REST APIs",
+        "Node.js (Basic)"
+      ]
+    },
+    {
+      "name": "Testing",
+      "skills": [
+        "Jasmine",
+        "Karma"
+      ]
+    },
+    {
+      "name": "Tools",
+      "skills": [
+        "Git",
+        "Bitbucket",
+        "Jira",
+        "Postman",
+        "Jenkins",
+        "Webpack",
+        "GitHub Copilot"
+      ]
+    },
+    {
+      "name": "Security",
+      "skills": [
+        "JWT Authentication",
+        "Session Management",
+        "Role-Based Access Control (RBAC)"
+      ]
+    },
+    {
+      "name": "Database",
+      "skills": [
+        "MySQL",
+        "PostgreSQL"
+      ]
+    }
+  ]
 }

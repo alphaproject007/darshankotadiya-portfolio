@@ -1,6 +1,9 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { Github, Linkedin, LucideAngularModule, Mail, Menu, Moon, Sun, X, type LucideIconData } from 'lucide-angular';
+import { SocialLink } from '../../core/models/social.model';
+import { PortfolioDataService } from '../../core/services/portfolio-data.service';
 import { ThemeService } from '../../core/services/theme.service';
 
 interface NavItem {
@@ -12,7 +15,7 @@ interface NavItem {
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink, LucideAngularModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss'
 })
@@ -22,19 +25,22 @@ export class NavbarComponent {
   private readonly router = inject(Router);
 
   protected readonly mobileMenuOpen = signal(false);
+  protected readonly socialLinks = signal<SocialLink[]>([]);
+  private readonly portfolioData = inject(PortfolioDataService);
 
-  // Prefer scrolling to sections on the main Me page for most nav items.
-  // Only Resume and Contact navigate to dedicated pages.
   protected readonly navItems: NavItem[] = [
     { label: 'Home', route: '/' },
     { label: 'About', section: 'about' },
     { label: 'Experience', section: 'experience' },
     { label: 'Projects', section: 'projects' },
-    { label: 'Skills', section: 'snapshot' }
+    { label: 'Skills', section: 'skills' }
   ];
 
   constructor() {
     this.setupKeyboardHandling();
+    this.portfolioData.getSocial().subscribe(data => {
+      this.socialLinks.set(data.links ?? []);
+    });
   }
 
   protected toggleMobileMenu(): void {
@@ -83,6 +89,32 @@ export class NavbarComponent {
 
   protected getThemeTitle(): string {
     return this.themeService.themeMode() === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
+  }
+
+  protected getVisibleSocialLinks(): SocialLink[] {
+    return this.socialLinks().filter(link => {
+      const platform = link.platform.toLowerCase();
+      return ['linkedin', 'github', 'email'].includes(platform);
+    });
+  }
+
+  protected getSocialIcon(platform: string): LucideIconData {
+    const normalized = platform.toLowerCase();
+    if (normalized === 'linkedin') {
+      return Linkedin;
+    }
+    if (normalized === 'github') {
+      return Github;
+    }
+    return Mail;
+  }
+
+  protected getThemeIcon(): LucideIconData {
+    return this.themeService.themeMode() === 'dark' ? Sun : Moon;
+  }
+
+  protected getMenuIcon(): LucideIconData {
+    return this.mobileMenuOpen() ? X : Menu;
   }
 
   private setupKeyboardHandling(): void {

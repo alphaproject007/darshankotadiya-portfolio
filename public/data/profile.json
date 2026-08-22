@@ -2,8 +2,9 @@
   "name": "Darshan Kotadiya",
   "title": "Full-Stack Software Engineer",
   "bio": "Angular-focused frontend developer with expertise in TypeScript, responsive design, and modern web architecture. Experienced with Java/Spring Boot backends and Ionic mobile development. I build clean, performant applications that deliver real value.",
-  "email": "darshan@example.com",
+  "email": "kotadiyadarshan213@gmail.com",
   "location": "Bengaluru, Karnataka, India",
-  "availability": "Open to opportunities"
+  "availability": "Open to opportunities",
+  "imageUrl": "assets/profile/profile.jpg"
 }
 

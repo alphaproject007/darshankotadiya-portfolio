@@ -101,8 +101,18 @@ a {
   animation: fade-in 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.animate-card-in {
-  animation: card-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.orbit-rotate {
+  animation: orbit-spin 18s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -111,7 +121,8 @@ a {
   }
 
   .animate-fade-in,
-  .animate-card-in {
+  .animate-card-in,
+  .orbit-rotate {
     animation: none;
     opacity: 1;
     transform: none;

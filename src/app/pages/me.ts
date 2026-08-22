@@ -1,26 +1,85 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
-import { PortfolioDataService } from '../core/services/portfolio-data.service';
+import {
+  ArrowRight,
+  Briefcase,
+  ClipboardList,
+  Code,
+  Database,
+  Download,
+  ExternalLink,
+  Gauge,
+  Layers2,
+  LucideAngularModule,
+  Mail,
+  MapPin,
+  MonitorSmartphone,
+  Server,
+  Shield,
+  Smartphone,
+  Sparkles,
+  Zap,
+  type LucideIconData
+} from 'lucide-angular';
+import {
+  siAngular,
+  siGit,
+  siIonic,
+  siJenkins,
+  siJira,
+  siJavascript,
+  siNodedotjs,
+  siOpenjdk,
+  siPostman,
+  siReact,
+  siReactivex,
+  siSpringboot,
+  siTypescript
+} from 'simple-icons';
 import { Profile } from '../core/models/profile.model';
 import { Experience } from '../core/models/experience.model';
 import { Project } from '../core/models/project.model';
+import { SkillCategory } from '../core/models/skills.model';
+import { PortfolioDataService } from '../core/services/portfolio-data.service';
 
 @Component({
   selector: 'app-me',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, LucideAngularModule],
   templateUrl: './me.html',
   styleUrl: './me.scss'
 })
 export class MeComponent implements OnInit {
   private readonly portfolioData = inject(PortfolioDataService);
+  private readonly sanitizer = inject(DomSanitizer);
   protected profile = signal<Profile | null>(null);
   protected experience = signal<Experience[]>([]);
   protected projects = signal<Project[]>([]);
+  protected skills = signal<SkillCategory[]>([]);
   protected isLoading = signal(true);
+  protected profileImageError = signal(false);
 
-  readonly techStack = ['Angular', 'TypeScript', 'Ionic', 'Java', 'Spring Boot'];
+  readonly techStack = [
+    { label: 'Angular', svg: siAngular.svg },
+    { label: 'TypeScript', svg: siTypescript.svg },
+    { label: 'Ionic', svg: siIonic.svg },
+    { label: 'Java', svg: siOpenjdk.svg },
+    { label: 'Spring Boot', svg: siSpringboot.svg },
+    { label: 'REST APIs', icon: Server },
+    { label: 'RxJS', svg: siReactivex.svg }
+  ];
+
+  readonly orbitTechs = [
+    { label: 'Angular', position: 'top-0 left-1/2 -translate-x-1/2', svg: siAngular.svg },
+    { label: 'TypeScript', position: 'top-[18%] right-[4%] translate-x-1/2', svg: siTypescript.svg },
+    { label: 'Ionic', position: 'right-0 top-1/2 -translate-y-1/2', svg: siIonic.svg },
+    { label: 'Java', position: 'bottom-[10%] right-[12%]', svg: siOpenjdk.svg },
+    { label: 'Spring Boot', position: 'bottom-0 left-1/2 -translate-x-1/2', svg: siSpringboot.svg },
+    { label: 'REST APIs', position: 'left-0 top-1/2 -translate-y-1/2', icon: Server },
+    { label: 'RxJS', position: 'left-[10%] top-[12%]', svg: siReactivex.svg }
+  ];
 
   readonly snapshotCards = [
     { value: '3.5+ Years', detail: 'Professional experience' },
@@ -29,20 +88,44 @@ export class MeComponent implements OnInit {
     { value: 'Enterprise Applications', detail: 'Business workflows' }
   ];
 
-  readonly aboutSkills = [
-    'Angular',
-    'TypeScript',
-    'JavaScript',
-    'Ionic',
-    'RxJS',
-    'REST APIs',
-    'Reactive Forms',
-    'State Management',
-    'Authentication',
-    'Authorization',
-    'Responsive Design',
-    'Performance Optimization'
-  ];
+  readonly capabilityIcons = {
+    'Enterprise Web Applications': Code,
+    'Hybrid Mobile Applications': Smartphone,
+    'API-Driven Applications': Server,
+    'Frontend Engineering': Layers2
+  };
+
+  protected readonly mapPinIcon = MapPin;
+  protected readonly mailIcon = Mail;
+  protected readonly downloadIcon = Download;
+  protected readonly arrowRightIcon = ArrowRight;
+  protected readonly externalLinkIcon = ExternalLink;
+  protected readonly briefcaseIcon = Briefcase;
+  protected readonly shieldIcon = Shield;
+  protected readonly gaugeIcon = Gauge;
+  protected readonly clipboardIcon = ClipboardList;
+  protected readonly sparklesIcon = Sparkles;
+  protected readonly databaseIcon = Database;
+  protected readonly zapIcon = Zap;
+  protected readonly monitorSmartphoneIcon = MonitorSmartphone;
+
+  protected readonly nameParts = computed(() => {
+    const fullName = this.profile()?.name ?? 'Darshan Kotadiya';
+    return fullName.split(' ');
+  });
+
+  protected readonly coreStrengths = computed(() => {
+    const uniqueSkills = new Set<string>();
+    for (const category of this.skills()) {
+      for (const skill of category.skills ?? []) {
+        if (skill && skill.trim().length > 0) {
+          uniqueSkills.add(skill.trim());
+        }
+      }
+    }
+
+    return Array.from(uniqueSkills).slice(0, 12);
+  });
 
   readonly buildCapabilities = [
     {
@@ -53,7 +136,8 @@ export class MeComponent implements OnInit {
         'Reusable UI',
         'Forms',
         'Data-driven interfaces'
-      ]
+      ],
+      icon: Code
     },
     {
       title: 'Hybrid Mobile Applications',
@@ -63,7 +147,8 @@ export class MeComponent implements OnInit {
         'Responsive interfaces',
         'Routing',
         'Offline-ready product experiences'
-      ]
+      ],
+      icon: Smartphone
     },
     {
       title: 'API-Driven Applications',
@@ -73,7 +158,8 @@ export class MeComponent implements OnInit {
         'Backend service communication',
         'Secure data flows',
         'Operational product workflows'
-      ]
+      ],
+      icon: Server
     },
     {
       title: 'Frontend Engineering',
@@ -84,9 +170,82 @@ export class MeComponent implements OnInit {
         'RxJS',
         'Performance',
         'Responsive UI'
-      ]
+      ],
+      icon: Layers2
     }
   ];
+
+  protected getTechnologySvg(tech: string): SafeHtml | null {
+    const lookup = new Map<string, string>([
+      ['angular', siAngular.svg],
+      ['angular material', siAngular.svg],
+      ['typescript', siTypescript.svg],
+      ['javascript', siJavascript.svg],
+      ['ionic', siIonic.svg],
+      ['spring boot', siSpringboot.svg],
+      ['spring boot (working knowledge)', siSpringboot.svg],
+      ['react', siReact.svg],
+      ['react native', siReact.svg],
+      ['node.js', siNodedotjs.svg],
+      ['node.js (basic)', siNodedotjs.svg],
+      ['git', siGit.svg],
+      ['jira', siJira.svg],
+      ['postman', siPostman.svg],
+      ['jenkins', siJenkins.svg],
+      ['java', siOpenjdk.svg],
+      ['rxjs', siReactivex.svg],
+      ['rest apis', '']
+    ]);
+
+    const normalized = tech.trim().toLowerCase();
+    const svg = lookup.get(normalized) ?? null;
+    if (!svg) {
+      return null;
+    }
+    if (!svg.length) {
+      return null;
+    }
+
+    return this.sanitizer.bypassSecurityTrustHtml(
+      svg.replace('<svg ', '<svg aria-hidden="true" class="h-3.5 w-3.5" ')
+    );
+  }
+
+  protected getBadgeSvg(svg: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(
+      svg.replace('<svg ', '<svg aria-hidden="true" class="h-3.5 w-3.5" ')
+    );
+  }
+
+  protected getSkillSvg(skill: string): SafeHtml | null {
+    return this.getTechnologySvg(skill);
+  }
+
+  protected getCategoryIcon(categoryName: string): LucideIconData {
+    const normalized = categoryName.toLowerCase();
+    if (normalized.includes('frontend')) {
+      return Code;
+    }
+    if (normalized.includes('mobile')) {
+      return Smartphone;
+    }
+    if (normalized.includes('backend') || normalized.includes('api')) {
+      return Server;
+    }
+    if (normalized.includes('testing')) {
+      return Shield;
+    }
+    if (normalized.includes('tools')) {
+      return Zap;
+    }
+    if (normalized.includes('security')) {
+      return Shield;
+    }
+    if (normalized.includes('database')) {
+      return Database;
+    }
+    return Sparkles;
+  }
 
   ngOnInit(): void {
     this.portfolioData.getProfile().subscribe({
@@ -106,6 +265,14 @@ export class MeComponent implements OnInit {
     this.portfolioData.getProjects().subscribe(data => {
       this.projects.set(data);
     });
+
+    this.portfolioData.getSkills().subscribe(data => {
+      this.skills.set(data.categories ?? []);
+    });
+  }
+
+  protected handleProfileImageError(): void {
+    this.profileImageError.set(true);
   }
 
   protected formatPeriodRange(period: { start: string; end?: string | null }): string {
@@ -128,5 +295,3 @@ export class MeComponent implements OnInit {
     }
   }
 }
-
-

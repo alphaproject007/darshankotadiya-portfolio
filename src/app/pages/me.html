@@ -29,11 +29,14 @@
 
           <div class="space-y-4">
             <p class="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
-              Hello, I’m
+              Hi, I’m 👋
             </p>
 
             <h1 class="text-4xl font-black tracking-[-0.04em] text-[var(--color-text)] sm:text-5xl lg:text-[4rem]">
-              {{ profile()!.name }}
+              <span>{{ nameParts()[0] ?? 'Darshan' }}</span>
+              <span class="ml-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500 bg-clip-text text-transparent">
+                {{ nameParts().slice(1).join(' ') || 'Kotadiya' }}
+              </span>
             </h1>
 
             <p class="text-lg font-semibold text-blue-500 dark:text-blue-400 sm:text-xl">
@@ -51,13 +54,18 @@
             </p>
 
             <div class="flex max-w-full flex-wrap gap-2">
-              @for (tech of techStack; track tech) {
+              @for (tech of techStack; track tech.label) {
                 <span
-                  class="inline-flex items-center rounded-full border px-3 py-1.5 text-xs font-medium text-[var(--color-text)]"
+                  class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1.5 text-xs font-medium text-[var(--color-text)]"
                   [style.borderColor]="'var(--color-border)'"
                   [style.backgroundColor]="'var(--color-surface)'"
                 >
-                  {{ tech }}
+                  @if (tech.svg) {
+                    <span [innerHTML]="getBadgeSvg(tech.svg)" class="inline-flex"></span>
+                  } @else if (tech.icon) {
+                    <lucide-icon [img]="tech.icon" class="h-3.5 w-3.5" aria-hidden="true"></lucide-icon>
+                  }
+                  <span>{{ tech.label }}</span>
                 </span>
               }
             </div>
@@ -68,8 +76,9 @@
               type="button"
               (click)="scrollToSection('projects')"
               aria-label="View projects"
-              class="inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 sm:w-auto"
+              class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 sm:w-auto"
             >
+              <lucide-icon [img]="arrowRightIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
               View My Work
             </button>
 
@@ -77,65 +86,68 @@
               type="button"
               [routerLink]="'/resume'"
               aria-label="View resume"
-              class="inline-flex w-full items-center justify-center rounded-xl border px-5 py-3 text-sm font-semibold text-[var(--color-text)] transition-all duration-200 hover:bg-[var(--color-hover)] sm:w-auto"
+              class="inline-flex w-full items-center justify-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold text-[var(--color-text)] transition-all duration-200 hover:bg-[var(--color-hover)] sm:w-auto"
               [style.borderColor]="'var(--color-border)'"
             >
+              <lucide-icon [img]="downloadIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
               View Resume
             </button>
           </div>
         </div>
 
         <div class="animate-fade-in">
-          <div class="mx-auto max-w-[28rem]">
-            <div
-              class="relative overflow-hidden rounded-[2rem] border p-4 shadow-[0_20px_60px_rgba(59,130,246,0.08)]"
-              [style.borderColor]="'var(--color-border)'"
-              [style.backgroundColor]="'var(--color-surface)'"
-            >
-              <div class="absolute inset-x-12 top-0 h-24 rounded-full bg-gradient-to-r from-blue-500/15 via-purple-500/15 to-transparent blur-2xl"></div>
+          <div class="mx-auto max-w-[30rem]">
+            <div class="relative mx-auto flex h-[20rem] w-[20rem] items-center justify-center sm:h-[22rem] sm:w-[22rem]">
+              <div class="absolute inset-0 rounded-full border border-blue-500/20 bg-gradient-to-r from-blue-500/10 via-violet-500/10 to-transparent blur-sm"></div>
+              <div class="absolute inset-4 rounded-full border border-blue-500/15 bg-white/5 shadow-[0_0_0_1px_rgba(148,163,184,0.1)] dark:shadow-[0_0_0_1px_rgba(255,255,255,0.08)]"></div>
+              <div class="absolute inset-0 rounded-full border border-dashed border-blue-400/20"></div>
 
-              <div class="relative rounded-[1.5rem] border bg-gradient-to-br from-slate-900/80 via-slate-800/70 to-blue-950/90 p-6 text-slate-100"
-                [style.borderColor]="'var(--color-border)'"
-              >
-                <div class="flex items-start justify-between text-[10px] font-medium uppercase tracking-[0.2em] text-slate-300">
-                  <span>Portfolio</span>
-                  <span>Angular</span>
-                </div>
+              <div class="orbit-rotate absolute inset-3 sm:inset-4">
+                @for (tech of orbitTechs; track tech.label) {
+                  <div
+                    [ngClass]="tech.position"
+                    class="absolute -translate-x-1/2 -translate-y-1/2"
+                  >
+                    <span class="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] shadow-[0_8px_20px_rgba(59,130,246,0.12)] backdrop-blur-sm">
+                      @if (tech.svg) {
+                        <span [innerHTML]="getBadgeSvg(tech.svg)" class="inline-flex"></span>
+                      } @else if (tech.icon) {
+                        <lucide-icon [img]="tech.icon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+                      }
+                    </span>
+                  </div>
+                }
+              </div>
 
-                <div class="mt-8 flex items-center justify-center">
-                  <div class="flex h-28 w-28 items-center justify-center rounded-full border border-white/15 bg-gradient-to-br from-blue-500/30 via-purple-500/20 to-slate-700/30 text-3xl font-bold text-white shadow-[0_0_30px_rgba(96,165,250,0.3)]">
+              <div class="relative z-10 flex h-52 w-52 items-center justify-center overflow-hidden rounded-full border border-white/15 bg-gradient-to-br from-slate-900 via-slate-800 to-blue-950 shadow-[0_25px_60px_rgba(59,130,246,0.25)] sm:h-56 sm:w-56">
+                @if (profile()?.imageUrl && !profileImageError()) {
+                  <img
+                    [src]="profile()?.imageUrl"
+                    [alt]="profile()?.name ?? 'Darshan Kotadiya'"
+                    class="h-full w-full object-cover"
+                    (error)="handleProfileImageError()"
+                  />
+                } @else {
+                  <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-600/80 via-violet-600/80 to-slate-900 text-5xl font-bold tracking-[0.2em] text-white">
                     DK
                   </div>
-                </div>
-
-                <div class="mt-8 flex flex-wrap justify-center gap-2 text-[10px] font-medium uppercase tracking-[0.12em] text-slate-200">
-                  <span class="rounded-full border border-white/10 bg-white/5 px-2.5 py-1">Angular</span>
-                  <span class="rounded-full border border-white/10 bg-white/5 px-2.5 py-1">TypeScript</span>
-                  <span class="rounded-full border border-white/10 bg-white/5 px-2.5 py-1">Ionic</span>
-                </div>
-
-                <div class="mt-6 grid grid-cols-2 gap-2 text-[11px] text-slate-300">
-                  <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-                    <div class="text-slate-400">Stack</div>
-                    <div class="mt-1 font-medium text-slate-100">Frontend</div>
-                  </div>
-                  <div class="rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-                    <div class="text-slate-400">Focus</div>
-                    <div class="mt-1 font-medium text-slate-100">Web + Mobile</div>
-                  </div>
-                </div>
+                }
               </div>
             </div>
 
-            <div class="mt-4 grid gap-3 sm:grid-cols-2">
+            <div class="mt-5 grid gap-3 sm:grid-cols-2">
               <div class="flex items-center gap-3 rounded-2xl border px-3 py-2.5 text-sm text-[var(--color-text)]" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/10 text-blue-500 dark:text-blue-400">📍</span>
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/10 text-blue-500 dark:text-blue-400">
+                  <lucide-icon [img]="mapPinIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+                </span>
                 <span>{{ profile()!.location }}</span>
               </div>
 
               @if (profile()!.availability) {
                 <div class="flex items-center gap-3 rounded-2xl border px-3 py-2.5 text-sm text-[var(--color-text)]" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
-                  <span class="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" aria-hidden="true"></span>
+                  <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                    <lucide-icon [img]="zapIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+                  </span>
                   <span>{{ profile()!.availability }}</span>
                 </div>
               }
@@ -237,7 +249,7 @@
         </p>
 
         <div class="mt-5 flex flex-wrap gap-2">
-          @for (skill of aboutSkills; track skill) {
+          @for (skill of coreStrengths(); track skill) {
             <span
               class="inline-flex items-center rounded-full border px-3 py-1.5 text-sm text-[var(--color-text)] transition-colors duration-200"
               [style.borderColor]="'var(--color-border)'"
@@ -455,7 +467,7 @@
             <p
               class="text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-500 dark:text-blue-400"
             >
-              Professional Work
+              {{ project.company ?? 'Professional Work' }}
             </p>
 
             <h3
@@ -477,11 +489,14 @@
               <div class="mt-5 flex flex-wrap gap-2">
                 @for (tech of project.technologies; track tech) {
                   <span
-                    class="inline-flex items-center rounded-full border px-2.5 py-1 text-[11px] font-medium text-[var(--color-text)]"
+                    class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium text-[var(--color-text)]"
                     [style.borderColor]="'var(--color-border)'"
                     [style.backgroundColor]="'var(--color-bg)'"
                   >
-                    {{ tech }}
+                    @if (getTechnologySvg(tech)) {
+                      <span [innerHTML]="getTechnologySvg(tech)" class="inline-flex"></span>
+                    }
+                    <span>{{ tech }}</span>
                   </span>
                 }
               </div>
@@ -509,6 +524,51 @@
   </div>
 </section>
 
+<!-- ==================== SKILLS ==================== -->
+
+<section id="skills" class="border-t py-16 sm:py-20" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-10 max-w-2xl">
+      <p class="text-sm font-semibold uppercase tracking-[0.24em] text-blue-500 dark:text-blue-400">
+        Skills
+      </p>
+
+      <h2 class="mt-3 text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">
+        Core engineering capabilities
+      </h2>
+    </div>
+
+    @if (skills().length === 0) {
+      <div class="rounded-2xl border p-6 text-[var(--color-text-muted)]" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-bg)'">
+        Skill information is being updated.
+      </div>
+    } @else {
+      <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        @for (category of skills(); track category.name) {
+          <article class="rounded-[1.5rem] border p-5 shadow-[0_10px_30px_rgba(15,23,42,0.03)] transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/40" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
+            <div class="mb-4 flex items-center gap-3">
+              <span class="flex h-8 w-8 items-center justify-center rounded-xl border bg-blue-500/10 text-blue-500 dark:text-blue-400" [style.borderColor]="'var(--color-border)'">
+                <lucide-icon [img]="getCategoryIcon(category.name)" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+              </span>
+              <h3 class="text-lg font-semibold text-[var(--color-text)]">{{ category.name }}</h3>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              @for (skill of category.skills; track skill) {
+                <span class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium text-[var(--color-text)]" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-bg)'">
+                  @if (getSkillSvg(skill)) {
+                    <span [innerHTML]="getSkillSvg(skill)" class="inline-flex"></span>
+                  }
+                  <span>{{ skill }}</span>
+                </span>
+              }
+            </div>
+          </article>
+        }
+      </div>
+    }
+  </div>
+</section>
 
 <!-- ==================== WHAT I BUILD ==================== -->
 
@@ -539,7 +599,10 @@
           [style.borderColor]="'var(--color-border)'"
           [style.backgroundColor]="'var(--color-surface)'"
         >
-          <div class="mb-4">
+          <div class="mb-4 flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl border bg-blue-500/10 text-blue-500 dark:text-blue-400" [style.borderColor]="'var(--color-border)'">
+              <lucide-icon [img]="capability.icon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+            </span>
             <h3
               class="text-xl font-semibold text-[var(--color-text)]"
             >
@@ -581,9 +644,15 @@
       <h3 class="mt-2 text-xl font-semibold text-[var(--color-text)]">Let's connect or view my resume</h3>
 
       <div class="mt-4 flex flex-wrap justify-center gap-3">
-        <a routerLink="/resume" class="inline-flex items-center justify-center rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="View resume">View Resume</a>
+        <a routerLink="/resume" class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="View resume">
+          <lucide-icon [img]="downloadIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+          View Resume
+        </a>
 
-        <a routerLink="/connect" class="inline-flex items-center justify-center rounded-lg border px-4 py-2 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Contact">Contact</a>
+        <a routerLink="/connect" class="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Contact">
+          <lucide-icon [img]="mailIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+          Contact
+        </a>
       </div>
     </div>
   </div>

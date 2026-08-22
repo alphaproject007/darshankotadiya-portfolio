@@ -1,9 +1,10 @@
 [
   {
-    "id": "gemba-concepts",
-    "title": "Gemba Concepts Pvt. Ltd.",
-    "description": "Angular applications for configurable business workflows, reusable UI components, dynamic forms, and enterprise operations support.",
-    "shortDescription": "Configurable business workflows and enterprise operations.",
+    "id": "gemba-connect",
+    "company": "Gemba Concepts Pvt. Ltd.",
+    "title": "Gemba Connect",
+    "description": "Metadata-driven Angular workflows for configurable enterprise operations with dynamic forms, reusable components, and RBAC-based access patterns.",
+    "shortDescription": "Configurable enterprise workflows and metadata-driven operations.",
     "technologies": [
       "Angular",
       "Angular Material",
@@ -18,43 +19,122 @@
       "end": "2026-04"
     },
     "highlights": [
-      "Reusable UI components and dynamic forms for workflow-heavy business processes.",
-      "Shared data tables and interface patterns for enterprise operations dashboards.",
-      "Contribution to production support, requirements collaboration, and sprint-ready feature delivery."
+      "Built configurable workflow experiences using metadata-driven patterns and reusable business components.",
+      "Created dynamic forms and data-driven interfaces across inventory, purchase, sales, and logistics flows.",
+      "Supported secure API collaboration and role-based enterprise operations across production use cases."
     ],
     "category": "web"
   },
   {
-    "id": "swan-softweb-solutions",
-    "title": "Swan Softweb Solutions",
-    "description": "Role-based student, teacher, parent, and admin workflows with routing, guards, reusable UI, and secure API-based experiences.",
-    "shortDescription": "Role-based academic workflows and responsive interfaces.",
+    "id": "kenzol-erp",
+    "company": "Gemba Concepts Pvt. Ltd.",
+    "title": "Kenzol – Web & Mobile ERP Application",
+    "description": "Manufacturing ERP workflows covering inventory, production, logistics, and BOM-based planning through Angular and Ionic interfaces.",
+    "shortDescription": "Manufacturing ERP workflows across web and mobile interfaces.",
     "technologies": [
       "Angular",
       "Ionic",
-      "TypeScript",
-      "Angular Material",
       "REST APIs",
+      "RxJS",
+      "Angular Material",
+      "Inventory",
+      "Production",
+      "Logistics"
+    ],
+    "period": {
+      "start": "2025-02",
+      "end": "2026-04"
+    },
+    "highlights": [
+      "Developed ERP-focused interfaces for manufacturing operations, inventory tracking, and production planning.",
+      "Worked with BOM-based planning and logistics-facing workflows across multi-role user journeys.",
+      "Connected responsive web and mobile experiences to business APIs for operational clarity."
+    ],
+    "category": "hybrid"
+  },
+  {
+    "id": "quality-management-app",
+    "company": "Gemba Concepts Pvt. Ltd.",
+    "title": "Quality Management App",
+    "description": "Inspection and defect-tracking workflows built for configurable forms, dashboards, and role-based quality assurance processes.",
+    "shortDescription": "Inspection workflows and defect tracking for quality operations.",
+    "technologies": [
+      "React Native",
+      "Angular",
+      "RBAC",
+      "REST APIs",
+      "Dashboards",
+      "Configurable Forms",
+      "Excel Bulk Import"
+    ],
+    "period": {
+      "start": "2024-11",
+      "end": "2026-04"
+    },
+    "highlights": [
+      "Implemented inspection workflow screens with configurable forms and operational dashboards.",
+      "Built defect-tracking experiences with role-based access and improved audit readability.",
+      "Supported Excel-based bulk import workflows for faster operational data entry."
+    ],
+    "category": "mobile"
+  },
+  {
+    "id": "beacon",
+    "company": "Swan Softweb Solutions",
+    "title": "Beacon",
+    "description": "E-learning platform experiences for courses, assessments, virtual classrooms, and learner progress tracking built with Angular and Ionic.",
+    "shortDescription": "E-learning workflows for courses, assessments, and learner progress.",
+    "technologies": [
+      "Angular",
+      "Ionic",
+      "REST APIs",
+      "RxJS",
       "JWT",
       "RBAC",
-      "RxJS"
+      "TypeScript"
     ],
     "period": {
       "start": "2024-03",
       "end": "2025-04"
     },
     "highlights": [
-      "Modernization work across Angular 14 to Angular 16 application architecture.",
-      "Route guards, reusable responsive components, and role-based UI behavior for varied user journeys.",
-      "Secure authentication and API-driven experiences across stakeholder workflows."
+      "Delivered role-aware user journeys for learners, instructors, and administrators across academic workflows.",
+      "Built reusable responsive interfaces for courses, assessments, and progress tracking features.",
+      "Worked with secure authentication and API-driven data flows for learning activities."
     ],
     "category": "hybrid"
   },
   {
-    "id": "tadvid-info-technologies",
-    "title": "Tadvid Info Technologies",
-    "description": "Dashboards, alerts, reusable components, and workflow-driven features powered by weather, soil, and crop data.",
-    "shortDescription": "Dashboards, alerts, and workflow-driven agricultural features.",
+    "id": "coding-ide",
+    "company": "Swan Softweb Solutions",
+    "title": "Coding IDE",
+    "description": "A development-focused experience for interactive coding workflows, personalized access, and real-time execution support.",
+    "shortDescription": "Real-time coding workflows with authentication and personalized access.",
+    "technologies": [
+      "React",
+      "Node.js",
+      "Authentication",
+      "Real-Time Code Execution",
+      "REST APIs",
+      "TypeScript"
+    ],
+    "period": {
+      "start": "2024-09",
+      "end": "2025-04"
+    },
+    "highlights": [
+      "Worked on coding workflow experiences with interactive execution and personalized access control.",
+      "Integrated authentication and access-aware user flows for secure development use cases.",
+      "Contributed to a fast, focused interface for coding and evaluation activities."
+    ],
+    "category": "web"
+  },
+  {
+    "id": "agridashboard",
+    "company": "Tadvid Info Technologies",
+    "title": "Agridashboard – Web and Mobile Application",
+    "description": "Agricultural monitoring dashboards for weather, soil, and crop data, with alerts, push notifications, and offline support for field operations.",
+    "shortDescription": "Agricultural monitoring, alerts, and operational dashboards for field data.",
     "technologies": [
       "Angular",
       "Ionic",
@@ -62,16 +142,16 @@
       "JavaScript",
       "REST APIs",
       "Push Notifications",
-      "Offline Capabilities"
+      "Offline Caching"
     ],
     "period": {
       "start": "2022-05",
       "end": "2024-02"
     },
     "highlights": [
-      "Dashboards and alerting interfaces for operational monitoring and data analysis.",
-      "Offline-capable mobile workflows and API communication for field-oriented use cases.",
-      "Support for deployment, maintenance, and debugging of live application features."
+      "Built dashboards and alerting workflows for weather, soil, and crop monitoring use cases.",
+      "Delivered field-friendly mobile experiences with offline capabilities and notification support.",
+      "Supported operational dashboards and maintenance work for live agricultural data experiences."
     ],
     "category": "mobile"
   }
