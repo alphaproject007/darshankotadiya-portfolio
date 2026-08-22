@@ -11,7 +11,9 @@ import {
   Download,
   ExternalLink,
   Gauge,
+  Github,
   Layers2,
+  Linkedin,
   LucideAngularModule,
   Mail,
   MapPin,
@@ -42,6 +44,7 @@ import { Profile } from '../core/models/profile.model';
 import { Experience } from '../core/models/experience.model';
 import { Project } from '../core/models/project.model';
 import { SkillCategory } from '../core/models/skills.model';
+import { SocialLink } from '../core/models/social.model';
 import { PortfolioDataService } from '../core/services/portfolio-data.service';
 
 @Component({
@@ -58,8 +61,10 @@ export class MeComponent implements OnInit {
   protected experience = signal<Experience[]>([]);
   protected projects = signal<Project[]>([]);
   protected skills = signal<SkillCategory[]>([]);
+  protected socialLinks = signal<SocialLink[]>([]);
   protected isLoading = signal(true);
   protected profileImageError = signal(false);
+  readonly currentYear = new Date().getFullYear();
 
   readonly techStack = [
     { label: 'Angular', svg: siAngular.svg },
@@ -207,13 +212,13 @@ export class MeComponent implements OnInit {
     }
 
     return this.sanitizer.bypassSecurityTrustHtml(
-      svg.replace('<svg ', '<svg aria-hidden="true" class="h-3.5 w-3.5" ')
+      svg.replace('<svg ', '<svg aria-hidden="true" fill="currentColor" class="h-3.5 w-3.5" ')
     );
   }
 
   protected getBadgeSvg(svg: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(
-      svg.replace('<svg ', '<svg aria-hidden="true" class="h-3.5 w-3.5" ')
+      svg.replace('<svg ', '<svg aria-hidden="true" fill="currentColor" class="h-4 w-4" ')
     );
   }
 
@@ -247,6 +252,24 @@ export class MeComponent implements OnInit {
     return Sparkles;
   }
 
+  protected getFooterSocialLinks(): SocialLink[] {
+    return this.socialLinks().filter(link => {
+      const platform = link.platform.toLowerCase();
+      return ['linkedin', 'github', 'email'].includes(platform);
+    });
+  }
+
+  protected getSocialIcon(platform: string): LucideIconData {
+    const normalized = platform.toLowerCase();
+    if (normalized === 'linkedin') {
+      return Linkedin;
+    }
+    if (normalized === 'github') {
+      return Github;
+    }
+    return Mail;
+  }
+
   ngOnInit(): void {
     this.portfolioData.getProfile().subscribe({
       next: (data: Profile) => {
@@ -268,6 +291,10 @@ export class MeComponent implements OnInit {
 
     this.portfolioData.getSkills().subscribe(data => {
       this.skills.set(data.categories ?? []);
+    });
+
+    this.portfolioData.getSocial().subscribe(data => {
+      this.socialLinks.set(data.links ?? []);
     });
   }
 

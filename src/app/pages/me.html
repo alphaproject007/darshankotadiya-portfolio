@@ -28,8 +28,9 @@
           </div>
 
           <div class="space-y-4">
-            <p class="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
-              Hi, I’m 👋
+            <p class="hero-greeting text-sm font-semibold uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
+              <span>Hello, I'm</span>
+              <span class="greeting-emoji" aria-hidden="true">👋</span>
             </p>
 
             <h1 class="text-4xl font-black tracking-[-0.04em] text-[var(--color-text)] sm:text-5xl lg:text-[4rem]">
@@ -107,12 +108,16 @@
                   <div
                     [ngClass]="tech.position"
                     class="absolute -translate-x-1/2 -translate-y-1/2"
+                    [attr.title]="tech.label"
                   >
-                    <span class="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] shadow-[0_8px_20px_rgba(59,130,246,0.12)] backdrop-blur-sm">
+                    <span
+                      class="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-blue-600 shadow-[0_8px_20px_rgba(59,130,246,0.12)] backdrop-blur-sm dark:text-blue-400"
+                      [attr.aria-label]="tech.label"
+                    >
                       @if (tech.svg) {
-                        <span [innerHTML]="getBadgeSvg(tech.svg)" class="inline-flex"></span>
+                        <span [innerHTML]="getBadgeSvg(tech.svg)" class="inline-flex text-current"></span>
                       } @else if (tech.icon) {
-                        <lucide-icon [img]="tech.icon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+                        <lucide-icon [img]="tech.icon" class="h-4 w-4 text-current" aria-hidden="true"></lucide-icon>
                       }
                     </span>
                   </div>
@@ -640,20 +645,51 @@
 <section id="final-cta" class="py-14 sm:py-12">
   <div class="mx-auto max-w-4xl px-3 sm:px-6 lg:px-8 text-center">
   <div class="w-full rounded-[1.75rem] border p-5 shadow-[0_12px_30px_rgba(15,23,42,0.04)] sm:p-6" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
-      <p class="text-sm font-semibold text-[var(--color-text-muted)]">Ready to talk?</p>
-      <h3 class="mt-2 text-xl font-semibold text-[var(--color-text)]">Let's connect or view my resume</h3>
+    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-text-muted)]">Let's connect</p>
+    <h3 class="mt-2 text-2xl font-semibold tracking-tight text-[var(--color-text)]">Open to relevant Angular / frontend opportunities.</h3>
 
-      <div class="mt-4 flex flex-wrap justify-center gap-3">
+    <div class="mt-5 flex flex-wrap justify-center gap-3">
         <a routerLink="/resume" class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="View resume">
           <lucide-icon [img]="downloadIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
           View Resume
         </a>
 
-        <a routerLink="/connect" class="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Contact">
+      <a routerLink="/connect" class="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Contact me">
           <lucide-icon [img]="mailIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
-          Contact
+        Contact Me
         </a>
       </div>
     </div>
   </div>
 </section>
+
+<footer class="border-t py-8 sm:py-10" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+    <a routerLink="/" class="inline-flex items-center gap-1 text-lg font-bold tracking-tight text-[var(--color-text)] transition-opacity hover:opacity-80" aria-label="Go to home">
+      <span>Darshan</span><span class="brand-dot">.</span>
+    </a>
+
+    <div class="flex items-center gap-2">
+      @for (social of getFooterSocialLinks(); track social.platform) {
+        <a
+          [href]="social.url"
+          [attr.aria-label]="social.platform"
+          [attr.title]="social.platform"
+          class="flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-200 hover:bg-[var(--color-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
+          [style.borderColor]="'var(--color-border)'"
+          [style.color]="'var(--color-text)'"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <lucide-icon [img]="getSocialIcon(social.platform)" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+        </a>
+      }
+    </div>
+  </div>
+
+  <div class="mt-5 text-center text-sm text-[var(--color-text-muted)]">
+    © {{ currentYear }} Darshan Kotadiya. All rights reserved.
+  </div>
+</div>
+</footer>
