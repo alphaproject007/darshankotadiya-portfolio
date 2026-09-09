@@ -18,6 +18,7 @@ import {
   Mail,
   MapPin,
   MonitorSmartphone,
+  Network,
   Server,
   Shield,
   Smartphone,
@@ -27,14 +28,20 @@ import {
 } from 'lucide-angular';
 import {
   siAngular,
+  siBootstrap,
+  siCss,
   siGit,
+  siHtml5,
   siIonic,
   siJenkins,
   siJira,
   siJavascript,
+  siMysql,
   siNodedotjs,
+  siNgrx,
   siOpenjdk,
   siPostman,
+  siPostgresql,
   siReact,
   siReactivex,
   siSpringboot,
@@ -67,23 +74,50 @@ export class MeComponent implements OnInit {
   readonly currentYear = new Date().getFullYear();
 
   readonly techStack = [
-    { label: 'Angular', svg: siAngular.svg },
-    { label: 'TypeScript', svg: siTypescript.svg },
-    { label: 'Ionic', svg: siIonic.svg },
-    { label: 'Java', svg: siOpenjdk.svg },
-    { label: 'Spring Boot', svg: siSpringboot.svg },
-    { label: 'REST APIs', icon: Server },
-    { label: 'RxJS', svg: siReactivex.svg }
+    { label: 'Angular', key: 'angular' },
+    { label: 'TypeScript', key: 'typescript' },
+    { label: 'Ionic', key: 'ionic' },
+    { label: 'Java', key: 'java' },
+    { label: 'Spring Boot', key: 'spring boot' },
+    { label: 'REST APIs', key: 'rest apis', icon: Server },
+    { label: 'RxJS', key: 'rxjs' }
   ];
 
-  readonly orbitTechs = [
-    { label: 'Angular', position: 'top-0 left-1/2 -translate-x-1/2', svg: siAngular.svg },
-    { label: 'TypeScript', position: 'top-[18%] right-[4%] translate-x-1/2', svg: siTypescript.svg },
-    { label: 'Ionic', position: 'right-0 top-1/2 -translate-y-1/2', svg: siIonic.svg },
-    { label: 'Java', position: 'bottom-[10%] right-[12%]', svg: siOpenjdk.svg },
-    { label: 'Spring Boot', position: 'bottom-0 left-1/2 -translate-x-1/2', svg: siSpringboot.svg },
-    { label: 'REST APIs', position: 'left-0 top-1/2 -translate-y-1/2', icon: Server },
-    { label: 'RxJS', position: 'left-[10%] top-[12%]', svg: siReactivex.svg }
+  private readonly technologySvgMap = new Map<string, string>([
+    ['angular', siAngular.svg],
+    ['angular material', siAngular.svg],
+    ['typescript', siTypescript.svg],
+    ['javascript', siJavascript.svg],
+    ['ionic', siIonic.svg],
+    ['spring boot', siSpringboot.svg],
+    ['spring boot (working knowledge)', siSpringboot.svg],
+    ['react', siReact.svg],
+    ['react native', siReact.svg],
+    ['node.js', siNodedotjs.svg],
+    ['node.js (basic)', siNodedotjs.svg],
+    ['git', siGit.svg],
+    ['jira', siJira.svg],
+    ['postman', siPostman.svg],
+    ['jenkins', siJenkins.svg],
+    ['java', siOpenjdk.svg],
+    ['java (working knowledge)', siOpenjdk.svg],
+    ['rxjs', siReactivex.svg],
+    ['mysql', siMysql.svg],
+    ['postgresql', siPostgresql.svg],
+    ['html5', siHtml5.svg],
+    ['css3', siCss.svg],
+    ['bootstrap', siBootstrap.svg],
+    ['ngrx / state management', siNgrx.svg]
+  ]);
+
+  readonly orbitPoints = [
+    { position: 'top-0 left-1/2 -translate-x-1/2', size: 'h-2.5 w-2.5', color: 'bg-gradient-to-r from-blue-500 to-cyan-400' },
+    { position: 'top-[18%] right-[4%] translate-x-1/2', size: 'h-3 w-3', color: 'bg-gradient-to-r from-violet-500 to-purple-500' },
+    { position: 'right-0 top-1/2 -translate-y-1/2', size: 'h-2.5 w-2.5', color: 'bg-gradient-to-r from-cyan-400 to-blue-500' },
+    { position: 'bottom-[10%] right-[12%]', size: 'h-3 w-3', color: 'bg-gradient-to-r from-emerald-400 to-teal-500' },
+    { position: 'bottom-0 left-1/2 -translate-x-1/2', size: 'h-2.5 w-2.5', color: 'bg-gradient-to-r from-indigo-500 to-violet-500' },
+    { position: 'left-0 top-1/2 -translate-y-1/2', size: 'h-2.5 w-2.5', color: 'bg-gradient-to-r from-sky-400 to-blue-600' },
+    { position: 'left-[10%] top-[12%]', size: 'h-3 w-3', color: 'bg-gradient-to-r from-fuchsia-500 to-violet-500' }
   ];
 
   readonly snapshotCards = [
@@ -181,29 +215,8 @@ export class MeComponent implements OnInit {
   ];
 
   protected getTechnologySvg(tech: string): SafeHtml | null {
-    const lookup = new Map<string, string>([
-      ['angular', siAngular.svg],
-      ['angular material', siAngular.svg],
-      ['typescript', siTypescript.svg],
-      ['javascript', siJavascript.svg],
-      ['ionic', siIonic.svg],
-      ['spring boot', siSpringboot.svg],
-      ['spring boot (working knowledge)', siSpringboot.svg],
-      ['react', siReact.svg],
-      ['react native', siReact.svg],
-      ['node.js', siNodedotjs.svg],
-      ['node.js (basic)', siNodedotjs.svg],
-      ['git', siGit.svg],
-      ['jira', siJira.svg],
-      ['postman', siPostman.svg],
-      ['jenkins', siJenkins.svg],
-      ['java', siOpenjdk.svg],
-      ['rxjs', siReactivex.svg],
-      ['rest apis', '']
-    ]);
-
     const normalized = tech.trim().toLowerCase();
-    const svg = lookup.get(normalized) ?? null;
+    const svg = this.technologySvgMap.get(normalized) ?? null;
     if (!svg) {
       return null;
     }
@@ -212,18 +225,31 @@ export class MeComponent implements OnInit {
     }
 
     return this.sanitizer.bypassSecurityTrustHtml(
-      svg.replace('<svg ', '<svg aria-hidden="true" fill="currentColor" class="h-3.5 w-3.5" ')
-    );
-  }
-
-  protected getBadgeSvg(svg: string): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(
-      svg.replace('<svg ', '<svg aria-hidden="true" fill="currentColor" class="h-4 w-4" ')
+      svg.replace(
+        '<svg ',
+        '<svg aria-hidden="true" fill="currentColor" width="18" height="18" class="h-4 w-4 shrink-0" '
+      )
     );
   }
 
   protected getSkillSvg(skill: string): SafeHtml | null {
     return this.getTechnologySvg(skill);
+  }
+
+  protected getTechnologyIcon(tech: string): LucideIconData | null {
+    const normalized = tech.trim().toLowerCase();
+    if (normalized === 'rest apis') {
+      return Network;
+    }
+    if (
+      normalized.includes('jwt') ||
+      normalized.includes('session') ||
+      normalized.includes('rbac') ||
+      normalized.includes('role-based')
+    ) {
+      return Shield;
+    }
+    return null;
   }
 
   protected getCategoryIcon(categoryName: string): LucideIconData {

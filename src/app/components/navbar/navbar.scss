@@ -3,9 +3,10 @@
 }
 
 .brand-dot {
-  display: inline-block;
+  display: inline;
   line-height: 1;
   vertical-align: baseline;
+  font-size: 1.12em;
   font-weight: inherit;
   background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   -webkit-background-clip: text;

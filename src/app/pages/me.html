@@ -61,10 +61,10 @@
                   [style.borderColor]="'var(--color-border)'"
                   [style.backgroundColor]="'var(--color-surface)'"
                 >
-                  @if (tech.svg) {
-                    <span [innerHTML]="getBadgeSvg(tech.svg)" class="inline-flex"></span>
+                  @if (getTechnologySvg(tech.key)) {
+                    <span [innerHTML]="getTechnologySvg(tech.key)" class="inline-flex text-current"></span>
                   } @else if (tech.icon) {
-                    <lucide-icon [img]="tech.icon" class="h-3.5 w-3.5" aria-hidden="true"></lucide-icon>
+                    <lucide-icon [img]="tech.icon" class="h-4 w-4 text-[var(--color-primary)]" aria-hidden="true"></lucide-icon>
                   }
                   <span>{{ tech.label }}</span>
                 </span>
@@ -98,38 +98,35 @@
 
         <div class="animate-fade-in">
           <div class="mx-auto max-w-[30rem]">
-            <div class="relative mx-auto flex h-[20rem] w-[20rem] items-center justify-center sm:h-[22rem] sm:w-[22rem]">
+            <div class="hero-visual relative mx-auto flex h-[20rem] w-[20rem] items-center justify-center sm:h-[22rem] sm:w-[22rem]">
               <div class="absolute inset-0 rounded-full border border-blue-500/20 bg-gradient-to-r from-blue-500/10 via-violet-500/10 to-transparent blur-sm"></div>
               <div class="absolute inset-4 rounded-full border border-blue-500/15 bg-white/5 shadow-[0_0_0_1px_rgba(148,163,184,0.1)] dark:shadow-[0_0_0_1px_rgba(255,255,255,0.08)]"></div>
               <div class="absolute inset-0 rounded-full border border-dashed border-blue-400/20"></div>
 
-              <div class="orbit-rotate absolute inset-3 sm:inset-4">
-                @for (tech of orbitTechs; track tech.label) {
+              <div class="orbit-rotate absolute inset-3 sm:inset-4" aria-hidden="true">
+                @for (point of orbitPoints; track point.position) {
                   <div
-                    [ngClass]="tech.position"
+                    [ngClass]="point.position"
                     class="absolute -translate-x-1/2 -translate-y-1/2"
-                    [attr.title]="tech.label"
                   >
                     <span
-                      class="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-blue-600 shadow-[0_8px_20px_rgba(59,130,246,0.12)] backdrop-blur-sm dark:text-blue-400"
-                      [attr.aria-label]="tech.label"
-                    >
-                      @if (tech.svg) {
-                        <span [innerHTML]="getBadgeSvg(tech.svg)" class="inline-flex text-current"></span>
-                      } @else if (tech.icon) {
-                        <lucide-icon [img]="tech.icon" class="h-4 w-4 text-current" aria-hidden="true"></lucide-icon>
-                      }
-                    </span>
+                      [ngClass]="point.size"
+                      class="block rounded-full shadow-[0_0_14px_rgba(59,130,246,0.3)] ring-2 ring-white/60 dark:ring-slate-900/60"
+                      [class]="point.color"
+                    ></span>
                   </div>
                 }
               </div>
 
-              <div class="relative z-10 flex h-52 w-52 items-center justify-center overflow-hidden rounded-full border border-white/15 bg-gradient-to-br from-slate-900 via-slate-800 to-blue-950 shadow-[0_25px_60px_rgba(59,130,246,0.25)] sm:h-56 sm:w-56">
+              <div class="portrait-3d relative z-10 flex h-56 w-56 items-center justify-center overflow-hidden rounded-full border border-white/15 bg-gradient-to-br from-slate-900 via-slate-800 to-blue-950 shadow-[0_25px_60px_rgba(59,130,246,0.25)] sm:h-60 sm:w-60">
                 @if (profile()?.imageUrl && !profileImageError()) {
                   <img
                     [src]="profile()?.imageUrl"
                     [alt]="profile()?.name ?? 'Darshan Kotadiya'"
-                    class="h-full w-full object-cover"
+                    width="224"
+                    height="224"
+                    decoding="async"
+                    class="portrait-image h-full w-full object-contain"
                     (error)="handleProfileImageError()"
                   />
                 } @else {
@@ -499,7 +496,10 @@
                     [style.backgroundColor]="'var(--color-bg)'"
                   >
                     @if (getTechnologySvg(tech)) {
-                      <span [innerHTML]="getTechnologySvg(tech)" class="inline-flex"></span>
+                      <span [innerHTML]="getTechnologySvg(tech)" class="inline-flex text-current"></span>
+                    }
+                    @else if (getTechnologyIcon(tech)) {
+                      <lucide-icon [img]="getTechnologyIcon(tech)!" class="h-4 w-4 shrink-0 text-[var(--color-primary)]" aria-hidden="true"></lucide-icon>
                     }
                     <span>{{ tech }}</span>
                   </span>
@@ -562,7 +562,9 @@
               @for (skill of category.skills; track skill) {
                 <span class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium text-[var(--color-text)]" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-bg)'">
                   @if (getSkillSvg(skill)) {
-                    <span [innerHTML]="getSkillSvg(skill)" class="inline-flex"></span>
+                    <span [innerHTML]="getSkillSvg(skill)" class="inline-flex text-current"></span>
+                  } @else if (getTechnologyIcon(skill)) {
+                    <lucide-icon [img]="getTechnologyIcon(skill)!" class="h-4 w-4 shrink-0 text-[var(--color-primary)]" aria-hidden="true"></lucide-icon>
                   }
                   <span>{{ skill }}</span>
                 </span>
@@ -663,33 +665,16 @@
   </div>
 </section>
 
-<footer class="border-t py-8 sm:py-10" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
-<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-  <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
-    <a routerLink="/" class="inline-flex items-center gap-1 text-lg font-bold tracking-tight text-[var(--color-text)] transition-opacity hover:opacity-80" aria-label="Go to home">
-      <span>Darshan</span><span class="brand-dot">.</span>
-    </a>
+<footer class="border-t py-4 sm:py-5" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col items-center justify-between gap-3 text-sm text-[var(--color-text-muted)] sm:flex-row sm:items-center">
+      <div>© {{ currentYear }} Darshan Kotadiya. All rights reserved.</div>
 
-    <div class="flex items-center gap-2">
-      @for (social of getFooterSocialLinks(); track social.platform) {
-        <a
-          [href]="social.url"
-          [attr.aria-label]="social.platform"
-          [attr.title]="social.platform"
-          class="flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-200 hover:bg-[var(--color-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
-          [style.borderColor]="'var(--color-border)'"
-          [style.color]="'var(--color-text)'"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <lucide-icon [img]="getSocialIcon(social.platform)" class="h-4 w-4" aria-hidden="true"></lucide-icon>
-        </a>
-      }
+      <div class="inline-flex items-center gap-1.5 text-[var(--color-text-muted)]">
+        <span>Crafted with</span>
+        <span class="text-pink-500" aria-hidden="true">♥</span>
+        <span>using Angular</span>
+      </div>
     </div>
   </div>
-
-  <div class="mt-5 text-center text-sm text-[var(--color-text-muted)]">
-    © {{ currentYear }} Darshan Kotadiya. All rights reserved.
-  </div>
-</div>
 </footer>
