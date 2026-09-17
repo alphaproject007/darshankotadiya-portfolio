@@ -1,0 +1,101 @@
+[
+  {
+    "id": "career-break-2026",
+    "type": "career-break",
+    "period": {
+      "start": "2026-05",
+      "end": null
+    },
+    "description": "Following organizational restructuring, I am currently exploring a stable long-term opportunity where I can contribute my frontend, mobile, and full-stack engineering experience while continuing to grow professionally.",
+    "technologies": [],
+    "highlights": []
+  },
+  {
+    "id": "gemba-concepts",
+    "company": "Gemba Concepts Pvt. Ltd.",
+    "position": "Software Developer Engineer",
+    "period": {
+      "start": "2025-06",
+      "end": "2026-04"
+    },
+    "description": "Worked on Angular applications for configurable business workflows, reusable UI components, and dynamic forms across operations-focused enterprise features.",
+    "technologies": [
+      "Angular",
+      "Angular Material",
+      "RxJS",
+      "Reactive Forms",
+      "REST APIs",
+      "JWT",
+      "RBAC",
+      "Git",
+      "Jira",
+      "Postman",
+      "Jenkins",
+      "GitHub Copilot"
+    ],
+    "highlights": [
+      "Built reusable UI components and data tables for enterprise workflow experiences.",
+      "Worked on dynamic forms covering inventory, production, purchase, sales, and logistics use cases.",
+      "Participated in requirements discussions, sprint ceremonies, code reviews, and client demos.",
+      "Supported production issues and backend API integration for operational continuity."
+    ]
+  },
+  {
+    "id": "swan-softweb-solutions",
+    "company": "Swan Softweb Solutions",
+    "position": "Angular Developer",
+    "period": {
+      "start": "2024-03",
+      "end": "2025-04"
+    },
+    "description": "Developed Angular and Ionic applications for role-based student, teacher, parent, and admin workflows with reusable responsive components.",
+    "technologies": [
+      "Angular",
+      "Ionic",
+      "TypeScript",
+      "Angular Material",
+      "RxJS",
+      "Reactive Forms",
+      "REST APIs",
+      "JWT",
+      "RBAC",
+      "Jasmine",
+      "Karma",
+      "Route Guards"
+    ],
+    "highlights": [
+      "Modernized Angular 14 to Angular 16 application architecture and module patterns.",
+      "Implemented routing, guards, reusable responsive UI, and role-based access controls.",
+      "Built workflows serving student, teacher, parent, and admin user journeys.",
+      "Worked with secure authentication flows and API-driven data interactions."
+    ]
+  },
+  {
+    "id": "tadvid-info-technologies",
+    "company": "Tadvid Info Technologies",
+    "position": "Software Engineer",
+    "period": {
+      "start": "2022-08",
+      "end": "2023-12"
+    },
+    "description": "Contributed to Angular and Ionic applications for dashboards, alerts, and workflow-driven features across agriculture and field operations data.",
+    "technologies": [
+      "Angular",
+      "Ionic",
+      "TypeScript",
+      "JavaScript",
+      "REST APIs",
+      "RxJS",
+      "Dashboards",
+      "Alerts",
+      "Push Notifications",
+      "Offline Capabilities"
+    ],
+    "highlights": [
+      "Built dashboard and alerting workflows for weather, soil, and crop data.",
+      "Developed reusable components and API communication patterns for data-driven interfaces.",
+      "Supported debugging, deployment, and ongoing maintenance across application workflows.",
+      "Delivered mobile-ready experiences with offline support and notification features."
+    ]
+  }
+]

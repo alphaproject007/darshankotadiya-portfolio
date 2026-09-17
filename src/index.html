@@ -2,10 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>DarshankotadiyaPortfolio</title>
+  <title>Darshan Kotadiya | Software Engineer</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <script>
+    (function() {
+      const STORAGE_KEY = 'portfolio-theme-mode';
+      const stored = localStorage.getItem(STORAGE_KEY);
+      
+      let theme = 'dark';
+      if (stored === 'dark' || stored === 'light') {
+        theme = stored;
+      } else if (window.matchMedia) {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      
+      document.documentElement.classList.add(theme);
+    })();
+  </script>
 </head>
 <body>
   <app-root></app-root>

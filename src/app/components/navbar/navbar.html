@@ -1,0 +1,95 @@
+<nav
+  class="sticky top-0 z-50 border-b backdrop-blur-xl"
+  style="
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    border-color: var(--color-border);
+  "
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-16 items-center justify-between gap-3">
+      <div class="flex min-w-0 items-center">
+        <a
+          routerLink="/"
+          class="inline-flex items-baseline text-lg font-bold tracking-tight transition-opacity hover:opacity-80"
+          [style.color]="'var(--color-text)'"
+          aria-label="Go to home"
+        >
+          <span class="brand-name">Darshan<span class="brand-dot">.</span></span>
+        </a>
+      </div>
+
+      <div class="hidden flex-1 items-center justify-center md:flex">
+        <nav class="flex items-center gap-1" aria-label="Primary navigation">
+          <button
+            *ngFor="let item of navItems"
+            type="button"
+            (click)="handleNav(item)"
+            class="rounded-full px-3 py-2 text-sm font-medium transition-all duration-200 hover:bg-[var(--color-hover)] hover:text-[var(--color-text)]"
+            [style.color]="'var(--color-text)'"
+          >
+            {{ item.label }}
+          </button>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-2">
+        @for (social of visibleSocialLinks(); track social.platform) {
+          <a
+            [href]="getSocialUrl(social)"
+            [attr.aria-label]="social.platform"
+            [attr.title]="social.platform"
+            class="flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-200 hover:bg-[var(--color-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
+            [style.borderColor]="'var(--color-border)'"
+            [style.color]="'var(--color-text)'"
+            [attr.target]="social.platform.toLowerCase() === 'email' ? null : '_blank'"
+            [attr.rel]="social.platform.toLowerCase() === 'email' ? null : 'noopener noreferrer'"
+          >
+            <lucide-icon [img]="getSocialIcon(social.platform)" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+          </a>
+        }
+
+        <button
+          type="button"
+          (click)="cycleTheme()"
+          [attr.aria-label]="getThemeTitle()"
+          [attr.title]="getThemeTitle()"
+          class="group flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300 ease-out hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
+          [style.backgroundColor]="'var(--color-hover)'"
+          [style.borderColor]="'var(--color-border)'"
+          [style.color]="'var(--color-text)'"
+        >
+          <lucide-icon [img]="getThemeIcon()" class="h-4 w-4 animate-theme-in" aria-hidden="true"></lucide-icon>
+        </button>
+
+        <button
+          type="button"
+          (click)="toggleMobileMenu()"
+          [attr.aria-label]="mobileMenuOpen() ? 'Close navigation menu' : 'Open navigation menu'"
+          class="flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60 md:hidden"
+          [style.color]="'var(--color-text)'"
+          [style.backgroundColor]="'var(--color-hover)'"
+          [style.borderColor]="'var(--color-border)'"
+        >
+          <lucide-icon [img]="getMenuIcon()" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    @if (mobileMenuOpen()) {
+      <div class="border-t py-3 md:hidden" [style.borderColor]="'var(--color-border)'">
+        <div class="space-y-1">
+          <button
+            *ngFor="let item of navItems"
+            type="button"
+            (click)="handleNav(item)"
+            class="block w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-all duration-200 hover:bg-[var(--color-hover)]"
+            [style.color]="'var(--color-text)'"
+          >
+            {{ item.label }}
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</nav>

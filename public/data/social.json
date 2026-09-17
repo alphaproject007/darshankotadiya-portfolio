@@ -1,0 +1,19 @@
+{
+  "links": [
+    {
+      "platform": "LinkedIn",
+      "url": "https://linkedin.com/in/darshankotadiya",
+      "icon": "linkedin"
+    },
+    {
+      "platform": "GitHub",
+      "url": "https://github.com/alphaproject007",
+      "icon": "github"
+    },
+    {
+      "platform": "Email",
+      "url": "mailto:kotadiyadarshan213@gmail.com",
+      "icon": "email"
+    }
+  ]
+}

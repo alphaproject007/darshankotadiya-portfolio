@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>DK</title>
+  <rect width="64" height="64" rx="16" fill="#2563eb"/>
+  <path fill="#fff" d="M8 14h8c11 0 17 7 17 18s-6 18-17 18H8zm8 7v22h1c5 0 8-4 8-11s-3-11-8-11z"/>
+  <path fill="#c4b5fd" d="M39 14h8v13l9-13h9L53 31l12 19h-9l-9-14v14h-8z"/>
+</svg>

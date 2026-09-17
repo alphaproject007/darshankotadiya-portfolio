@@ -1,0 +1,733 @@
+<!-- ==================== HERO ==================== -->
+
+<section id="top" class="relative overflow-hidden py-12 sm:py-16 lg:py-20">
+  <div
+    class="pointer-events-none absolute -right-40 -top-40 h-80 w-80 rounded-full bg-blue-500/5 blur-3xl"
+  ></div>
+
+  <div
+    class="pointer-events-none absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-violet-500/5 blur-3xl"
+  ></div>
+
+  <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    @if (isLoading()) {
+      <div class="flex h-96 items-center justify-center">
+        <div class="text-[var(--color-text-muted)]">Loading...</div>
+      </div>
+    } @else if (profile()) {
+      <div class="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+        <div class="animate-fade-in space-y-6">
+          <div class="flex flex-wrap items-center gap-3">
+            <span
+              class="inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-blue-500 dark:text-blue-400"
+              [style.borderColor]="'var(--color-border)'"
+              [style.backgroundColor]="'var(--color-primary-soft)'"
+            >
+              {{ profile()!.availability ?? 'Open to opportunities' }}
+            </span>
+          </div>
+
+          <div class="space-y-4">
+            <p class="hero-greeting text-sm font-semibold uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
+              <span>Hello, I'm</span>
+              <span class="greeting-emoji" aria-hidden="true">👋</span>
+            </p>
+
+            <h1 class="text-4xl font-black tracking-[-0.04em] text-[var(--color-text)] sm:text-5xl lg:text-[4rem]">
+              <span>{{ nameParts()[0] ?? 'Darshan' }}</span>
+              <span class="ml-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500 bg-clip-text text-transparent">
+                {{ nameParts().slice(1).join(' ') || 'Kotadiya' }}
+              </span>
+            </h1>
+
+            <p class="text-lg font-semibold text-blue-500 dark:text-blue-400 sm:text-xl">
+              {{ profile()!.title }}
+            </p>
+          </div>
+
+          <p class="max-w-xl text-base leading-7 text-[var(--color-text-muted)]">
+            {{ profile()!.bio }}
+          </p>
+
+          <div class="space-y-3">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+              Core stack
+            </p>
+
+            <div class="flex max-w-full flex-wrap gap-2">
+              @for (tech of techStack; track tech.label) {
+                <span
+                  class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1.5 text-xs font-medium text-[var(--color-text)]"
+                  [style.borderColor]="'var(--color-border)'"
+                  [style.backgroundColor]="'var(--color-surface)'"
+                >
+                  @if (getTechnologySvg(tech.key)) {
+                    <span [innerHTML]="getTechnologySvg(tech.key)" class="inline-flex text-current"></span>
+                  } @else if (tech.icon) {
+                    <lucide-icon [img]="tech.icon" class="h-4 w-4 text-[var(--color-primary)]" aria-hidden="true"></lucide-icon>
+                  }
+                  <span>{{ tech.label }}</span>
+                </span>
+              }
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <button
+              type="button"
+              (click)="scrollToSection('projects')"
+              aria-label="View projects"
+              class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 sm:w-auto"
+            >
+              <lucide-icon [img]="arrowRightIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+              View My Work
+            </button>
+
+            <a
+              [href]="getContactUrl()"
+              aria-label="Contact me by email"
+              class="inline-flex w-full items-center justify-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold text-[var(--color-text)] transition-all duration-200 hover:bg-[var(--color-hover)] sm:w-auto"
+              [style.borderColor]="'var(--color-border)'"
+            >
+              <lucide-icon [img]="mailIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+              Contact Me
+            </a>
+          </div>
+        </div>
+
+        <div class="animate-fade-in">
+          <div class="mx-auto max-w-[30rem]">
+            <div class="hero-visual relative mx-auto flex h-[20rem] w-[20rem] items-center justify-center sm:h-[22rem] sm:w-[22rem]">
+              <div class="absolute inset-0 rounded-full border border-blue-500/20 bg-gradient-to-r from-blue-500/10 via-violet-500/10 to-transparent blur-sm"></div>
+              <div class="absolute inset-4 rounded-full border border-blue-500/15 bg-white/5 shadow-[0_0_0_1px_rgba(148,163,184,0.1)] dark:shadow-[0_0_0_1px_rgba(255,255,255,0.08)]"></div>
+              <div class="absolute inset-0 rounded-full border border-dashed border-blue-400/20"></div>
+
+              <div class="orbit-rotate absolute inset-3 sm:inset-4" aria-hidden="true">
+                @for (point of orbitPoints; track point.position) {
+                  <div
+                    [ngClass]="point.position"
+                    class="absolute -translate-x-1/2 -translate-y-1/2"
+                  >
+                    <span
+                      [ngClass]="point.size"
+                      class="block rounded-full shadow-[0_0_14px_rgba(59,130,246,0.3)] ring-2 ring-white/60 dark:ring-slate-900/60"
+                      [class]="point.color"
+                    ></span>
+                  </div>
+                }
+              </div>
+
+              <div class="portrait-3d relative z-10 flex h-56 w-56 items-center justify-center overflow-hidden rounded-full border border-white/15 bg-gradient-to-br from-slate-900 via-slate-800 to-blue-950 shadow-[0_25px_60px_rgba(59,130,246,0.25)] sm:h-60 sm:w-60">
+                @if (profile()?.imageUrl && !profileImageError()) {
+                  <img
+                    [src]="profile()?.imageUrl"
+                    [alt]="profile()?.name ?? 'Darshan Kotadiya'"
+                    width="224"
+                    height="224"
+                    decoding="async"
+                    class="portrait-image h-full w-full object-contain"
+                    (error)="handleProfileImageError()"
+                  />
+                } @else {
+                  <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-600/80 via-violet-600/80 to-slate-900 text-5xl font-bold tracking-[0.2em] text-white">
+                    DK
+                  </div>
+                }
+              </div>
+            </div>
+
+            <div class="mt-5 grid gap-3 sm:grid-cols-2">
+              <div class="flex items-center gap-3 rounded-2xl border px-3 py-2.5 text-sm text-[var(--color-text)]" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/10 text-blue-500 dark:text-blue-400">
+                  <lucide-icon [img]="mapPinIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+                </span>
+                <span>{{ profile()!.location }}</span>
+              </div>
+
+              @if (profile()!.availability) {
+                <div class="flex items-center gap-3 rounded-2xl border px-3 py-2.5 text-sm text-[var(--color-text)]" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
+                  <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                    <lucide-icon [img]="zapIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+                  </span>
+                  <span>{{ profile()!.availability }}</span>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>
+
+
+<!-- ==================== ENGINEERING SNAPSHOT ==================== -->
+
+<section
+ id="snapshot"
+ class="border-y py-12 sm:py-16"
+ [style.borderColor]="'var(--color-border)'"
+ [style.backgroundColor]="'var(--color-surface)'"
+>
+ <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+   <div class="mb-8 max-w-2xl">
+     <p class="text-sm font-semibold uppercase tracking-[0.24em] text-blue-500 dark:text-blue-400">
+       Engineering Snapshot
+     </p>
+
+     <h2 class="mt-3 text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">
+       Engineering Snapshot
+     </h2>
+   </div>
+
+   <div class="overflow-hidden rounded-[1.75rem] border" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface-solid)'">
+     <div class="grid gap-0 md:grid-cols-2 xl:grid-cols-4">
+       @for (card of snapshotCards(); track card.value) {
+         <article
+           class="animate-card-in border-b border-r p-5 transition-all duration-300 hover:bg-[var(--color-hover)] last:border-b-0 md:last:border-r-0 xl:last:border-r-0"
+           [style.borderColor]="'var(--color-border)'"
+         >
+           <div class="flex items-center gap-3">
+             <span class="flex h-9 w-9 items-center justify-center rounded-xl border bg-blue-500/10 text-blue-500 dark:text-blue-400" [style.borderColor]="'var(--color-border)'">✦</span>
+             <div class="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+               {{ card.detail }}
+             </div>
+           </div>
+
+           <div class="mt-4 text-2xl font-bold tracking-tight text-[var(--color-text)]">
+             {{ card.value }}
+           </div>
+         </article>
+       }
+     </div>
+   </div>
+ </div>
+</section>
+
+<!-- ==================== ABOUT ==================== -->
+
+<section id="about" class="py-12 sm:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+
+      <!-- About text -->
+      <div class="animate-fade-in space-y-6">
+        <div>
+          <p
+            class="text-sm font-semibold uppercase tracking-[0.24em] text-blue-500 dark:text-blue-400"
+          >
+            About
+          </p>
+
+          <h2
+            class="mt-3 text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl"
+          >
+            Angular-focused software engineer
+          </h2>
+        </div>
+
+        <div class="space-y-4 text-base leading-7 text-[var(--color-text-muted)]">
+          <p>
+            {{ profile()?.bio ?? 'I build responsive, component-driven interfaces with Angular and TypeScript for enterprise web and hybrid mobile applications.' }}
+          </p>
+
+          <p>
+            Focus areas: reusable UI components, dynamic forms, REST/API integrations, authentication & authorization, and cross-platform delivery.
+          </p>
+        </div>
+      </div>
+
+      <!-- Core strengths -->
+      <div
+        class="rounded-[1.75rem] border p-6 shadow-[0_12px_30px_rgba(15,23,42,0.04)] transition-all duration-300 hover:border-blue-400/30"
+        [style.borderColor]="'var(--color-border)'"
+        [style.backgroundColor]="'var(--color-surface)'"
+      >
+        <p
+          class="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-text-muted)]"
+        >
+          Core strengths
+        </p>
+
+        <div class="mt-5 flex flex-wrap gap-2">
+          @for (skill of coreStrengths(); track skill) {
+            <span
+              class="inline-flex items-center rounded-full border px-3 py-1.5 text-sm text-[var(--color-text)] transition-colors duration-200"
+              [style.borderColor]="'var(--color-border)'"
+              [style.backgroundColor]="'var(--color-bg)'"
+            >
+              {{ skill }}
+            </span>
+          }
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ==================== PROFESSIONAL EXPERIENCE ==================== -->
+
+<!-- ==================== PROFESSIONAL EXPERIENCE ==================== -->
+
+<section
+  id="experience"
+  class="border-t py-16 sm:py-20"
+  [style.borderColor]="'var(--color-border)'"
+  [style.backgroundColor]="'var(--color-surface)'"
+>
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+
+    <!-- Section heading -->
+    <div class="mb-10 max-w-2xl">
+      <p
+        class="text-sm font-semibold uppercase tracking-[0.24em] text-blue-500 dark:text-blue-400"
+      >
+        Experience
+      </p>
+
+      <h2
+        class="mt-3 text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl"
+      >
+        Professional Experience
+      </h2>
+    </div>
+
+    @if (experience().length === 0) {
+
+      <!-- Empty state -->
+      <div
+        class="rounded-2xl border p-6 text-[var(--color-text-muted)]"
+        [style.borderColor]="'var(--color-border)'"
+        [style.backgroundColor]="'var(--color-bg)'"
+      >
+        Experience information is being updated.
+      </div>
+
+    } @else {
+
+      <!-- Timeline -->
+      <div class="relative">
+
+        <!-- Continuous timeline line -->
+        <div
+          class="absolute bottom-5 left-3 top-0 w-px bg-[var(--color-border)]"
+          aria-hidden="true"
+        ></div>
+
+        <div class="space-y-8">
+
+          @for (job of experience(); track job.id; let first = $first) {
+
+            <article class="relative pl-8">
+
+              <!-- Experience content -->
+              <div
+                class="rounded-2xl border p-5 transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/40 hover:bg-[var(--color-hover)] sm:p-6"
+                [style.borderColor]="'var(--color-border)'"
+                [style.backgroundColor]="'var(--color-surface)'"
+              >
+
+                <!-- Company / Role / Date -->
+                <div
+                  class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"
+                >
+                  <div class="min-w-0">
+                    <div class="text-xs font-semibold uppercase tracking-[0.18em] text-blue-500 dark:text-blue-400">
+                      {{ job.type === 'career-break' ? 'Career Break' : job.company }}
+                    </div>
+
+                    <h3
+                      class="mt-1 text-xl font-semibold text-[var(--color-text)]"
+                    >
+                      {{ job.type === 'career-break' ? 'Exploring the next long-term opportunity' : job.position }}
+                    </h3>
+                  </div>
+
+                  <time
+                                      class="w-fit shrink-0 rounded-full border px-3 py-1 text-xs font-medium uppercase tracking-[0.14em] text-[var(--color-text-muted)]"
+                    [style.borderColor]="'var(--color-border)'"
+                    [style.backgroundColor]="'var(--color-bg)'"
+                                      aria-label="employment period"
+                                    >
+                                      {{ formatPeriodRange(job.period) }}
+                                    </time>
+                </div>
+
+                <!-- Most Recent -->
+                @if (first && job.type !== 'career-break') {
+                  <span
+                    class="mt-3 inline-flex rounded-full border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-500"
+                    [style.borderColor]="'var(--color-border)'"
+                    [style.backgroundColor]="'var(--color-primary-soft)'"
+                  >
+                    Most Recent
+                  </span>
+                }
+
+                <!-- Description -->
+                <p
+                  class="mt-4 text-sm leading-6 text-[var(--color-text-muted)]"
+                >
+                  {{ job.description }}
+                </p>
+
+                <!-- Highlights -->
+                @if (job.highlights?.length) {
+                  <ul class="mt-4 space-y-2 text-sm leading-6 text-[var(--color-text-muted)]" aria-label="role highlights">
+                    @for (highlight of job.highlights; track highlight) {
+                      <li class="flex items-start gap-2">
+                        <span
+                          class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500"
+                          aria-hidden="true"
+                        ></span>
+
+                        <span>{{ highlight }}</span>
+                      </li>
+                    }
+                  </ul>
+                }
+
+                @if (job.type === 'career-break') {
+                  <span
+                    class="mt-3 inline-flex rounded-full border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-600 dark:text-amber-300"
+                    [style.borderColor]="'var(--color-border)'"
+                    [style.backgroundColor]="'var(--color-primary-soft)'"
+                  >
+                    Current status
+                  </span>
+                }
+
+                <!-- Technologies -->
+                @if (job.technologies?.length) {
+                  <div class="mt-5 flex flex-wrap gap-2">
+                    @for (tech of job.technologies; track tech) {
+                      <span
+                        class="inline-flex items-center rounded-full border px-2 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-[var(--color-text-muted)]"
+                        [style.borderColor]="'var(--color-border)'"
+                        [style.backgroundColor]="'var(--color-bg)'"
+                      >
+                        {{ tech }}
+                      </span>
+                    }
+                  </div>
+                }
+
+              </div>
+
+              <!-- Timeline pointer -->
+              <span
+                class="timeline-job-marker absolute left-3 top-7 z-10 h-3 w-3 -translate-x-1/2 rounded-full border border-blue-400 bg-[var(--color-surface)] shadow-[0_0_0_4px_var(--color-surface)]"
+                [class.timeline-current]="first"
+                aria-hidden="true"
+              ></span>
+
+            </article>
+
+          }
+
+        </div>
+      </div>
+    }
+
+  </div>
+</section>
+
+
+<!-- ==================== PROFESSIONAL PROJECTS ==================== -->
+
+<section id="projects" class="py-16 sm:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-10 max-w-2xl">
+      <p
+        class="text-sm font-semibold uppercase tracking-[0.24em] text-blue-500 dark:text-blue-400"
+      >
+        Professional Work
+      </p>
+
+      <h2
+        class="mt-3 text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl"
+      >
+        Professional Projects
+      </h2>
+    </div>
+
+    @if (projects().length === 0) {
+      <div
+        class="rounded-2xl border p-6 text-[var(--color-text-muted)]"
+        [style.borderColor]="'var(--color-border)'"
+        [style.backgroundColor]="'var(--color-surface)'"
+      >
+        Project information is being updated.
+      </div>
+    } @else {
+      <div class="grid gap-6 md:grid-cols-2">
+        @for (project of projects(); track project.id) {
+          <article
+            class="group relative overflow-hidden rounded-[1.5rem] border p-6 shadow-[0_10px_30px_rgba(15,23,42,0.03)] transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/40 hover:bg-[var(--color-hover)]"
+            [style.borderColor]="'var(--color-border)'"
+            [style.backgroundColor]="'var(--color-surface)'"
+          >
+            <div
+              class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            ></div>
+
+            <p
+              class="text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-500 dark:text-blue-400"
+            >
+              {{ project.company ?? 'Professional Work' }}
+            </p>
+
+            <h3
+              class="mt-3 text-2xl font-semibold text-[var(--color-text)]"
+            >
+              {{ project.title }}
+            </h3>
+
+            <p
+              class="mt-3 text-sm leading-6 text-[var(--color-text-muted)]"
+            >
+              {{ project.description }}
+            </p>
+
+            @if (
+              project.technologies &&
+              project.technologies.length > 0
+            ) {
+              <div class="mt-5 flex flex-wrap gap-2">
+                @for (tech of project.technologies; track tech) {
+                  <span
+                    class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium text-[var(--color-text)]"
+                    [style.borderColor]="'var(--color-border)'"
+                    [style.backgroundColor]="'var(--color-bg)'"
+                  >
+                    @if (getTechnologySvg(tech)) {
+                      <span [innerHTML]="getTechnologySvg(tech)" class="inline-flex text-current"></span>
+                    }
+                    @else if (getTechnologyIcon(tech)) {
+                      <lucide-icon [img]="getTechnologyIcon(tech)!" class="h-4 w-4 shrink-0 text-[var(--color-primary)]" aria-hidden="true"></lucide-icon>
+                    }
+                    <span>{{ tech }}</span>
+                  </span>
+                }
+              </div>
+            }
+
+            @if (project.highlights && project.highlights.length > 0) {
+              <ul
+                class="mt-5 space-y-2 text-sm leading-6 text-[var(--color-text-muted)]"
+              >
+                @for (highlight of project.highlights; track highlight) {
+                  <li class="flex items-start gap-2">
+                    <span
+                      class="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500"
+                    ></span>
+
+                    <span>{{ highlight }}</span>
+                  </li>
+                }
+              </ul>
+            }
+
+            @if (project.links?.website || project.links?.demo || project.links?.github) {
+              <div class="mt-5 flex flex-wrap gap-3">
+                @if (project.links?.website || project.links?.demo) {
+                  <a
+                    [href]="project.links?.website || project.links?.demo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
+                  >
+                    <lucide-icon [img]="externalLinkIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+                    Live Project
+                  </a>
+                }
+
+                @if (project.links?.github) {
+                  <a
+                    [href]="project.links?.github"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+                  >
+                    <lucide-icon [img]="externalLinkIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+                    Source
+                  </a>
+                }
+              </div>
+            }
+          </article>
+        }
+      </div>
+    }
+  </div>
+</section>
+
+<!-- ==================== SKILLS ==================== -->
+
+<section id="skills" class="border-t py-16 sm:py-20" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-10 max-w-2xl">
+      <p class="text-sm font-semibold uppercase tracking-[0.24em] text-blue-500 dark:text-blue-400">
+        Skills
+      </p>
+
+      <h2 class="mt-3 text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl">
+        Core engineering capabilities
+      </h2>
+    </div>
+
+    @if (skills().length === 0) {
+      <div class="rounded-2xl border p-6 text-[var(--color-text-muted)]" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-bg)'">
+        Skill information is being updated.
+      </div>
+    } @else {
+      <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        @for (category of skills(); track category.name) {
+          <article class="rounded-[1.5rem] border p-5 shadow-[0_10px_30px_rgba(15,23,42,0.03)] transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/40" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
+            <div class="mb-4 flex items-center gap-3">
+              <span class="flex h-8 w-8 items-center justify-center rounded-xl border bg-blue-500/10 text-blue-500 dark:text-blue-400" [style.borderColor]="'var(--color-border)'">
+                <lucide-icon [img]="getCategoryIcon(category.name)" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+              </span>
+              <h3 class="text-lg font-semibold text-[var(--color-text)]">{{ category.name }}</h3>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              @for (skill of category.skills; track skill) {
+                <span class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium text-[var(--color-text)]" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-bg)'">
+                  @if (getSkillSvg(skill)) {
+                    <span [innerHTML]="getSkillSvg(skill)" class="inline-flex text-current"></span>
+                  } @else if (getTechnologyIcon(skill)) {
+                    <lucide-icon [img]="getTechnologyIcon(skill)!" class="h-4 w-4 shrink-0 text-[var(--color-primary)]" aria-hidden="true"></lucide-icon>
+                  }
+                  <span>{{ skill }}</span>
+                </span>
+              }
+            </div>
+          </article>
+        }
+      </div>
+    }
+  </div>
+</section>
+
+<!-- ==================== WHAT I BUILD ==================== -->
+
+<section
+  id="what-i-build"
+  class="border-t py-16 sm:py-20"
+  [style.borderColor]="'var(--color-border)'"
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-8 max-w-2xl">
+      <p
+        class="text-sm font-semibold uppercase tracking-[0.24em] text-blue-500 dark:text-blue-400"
+      >
+        Capabilities
+      </p>
+
+      <h2
+        class="mt-3 text-3xl font-bold tracking-tight text-[var(--color-text)] sm:text-4xl"
+      >
+        What I Build
+      </h2>
+    </div>
+
+    <div class="grid gap-5 md:grid-cols-2">
+      @for (capability of buildCapabilities; track capability.title) {
+        <article
+                  class="group h-full flex flex-col rounded-[1.5rem] border p-6 shadow-[0_10px_30px_rgba(15,23,42,0.03)] transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/40 hover:bg-[var(--color-hover)]"
+          [style.borderColor]="'var(--color-border)'"
+          [style.backgroundColor]="'var(--color-surface)'"
+        >
+          <div class="mb-4 flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl border bg-blue-500/10 text-blue-500 dark:text-blue-400" [style.borderColor]="'var(--color-border)'">
+              <lucide-icon [img]="capability.icon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+            </span>
+            <h3
+              class="text-xl font-semibold text-[var(--color-text)]"
+            >
+              {{ capability.title }}
+            </h3>
+          </div>
+
+          <p
+            class="mb-4 text-sm font-medium uppercase tracking-[0.18em] text-blue-500 dark:text-blue-400"
+          >
+            {{ capability.tech }}
+          </p>
+
+          <ul
+                      class="space-y-2 text-sm leading-6 text-[var(--color-text-muted)]"
+          >
+            @for (point of capability.points; track point) {
+              <li class="flex items-start gap-2">
+                <span
+                  class="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500 transition-transform duration-200 group-hover:scale-125"
+                ></span>
+
+                <span>{{ point }}</span>
+              </li>
+            }
+          </ul>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FINAL CTA / CONTACT ==================== -->
+
+<section id="final-cta" class="py-14 sm:py-12">
+  <div class="mx-auto max-w-4xl px-3 sm:px-6 lg:px-8 text-center">
+  <div class="w-full rounded-[1.75rem] border p-5 shadow-[0_12px_30px_rgba(15,23,42,0.04)] sm:p-6" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
+    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-text-muted)]">Let's connect</p>
+    <h3 class="mt-2 text-2xl font-semibold tracking-tight text-[var(--color-text)]">Software Engineer | Web, Mobile &amp; Backend Development</h3>
+
+    <div class="mt-5 flex flex-wrap justify-center gap-3">
+        <a [href]="resumeUrl" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="View resume">
+          <lucide-icon [img]="eyeIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+          View Resume
+        </a>
+
+        <a [href]="resumeUrl" download class="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Download resume">
+          <lucide-icon [img]="downloadIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+          Download Resume
+        </a>
+
+      <a [href]="getContactUrl()" class="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Contact me by email">
+          <lucide-icon [img]="mailIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+        Contact Me
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer #siteFooter class="border-t py-4 sm:py-5" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col items-center justify-between gap-3 text-sm text-[var(--color-text-muted)] sm:flex-row sm:items-center">
+      <div>© {{ currentYear }} Darshan Kotadiya. All rights reserved.</div>
+
+      <div class="inline-flex items-center gap-1.5 text-[var(--color-text-muted)]">
+        <span>Crafted with</span>
+        <span class="text-pink-500" aria-hidden="true">♥</span>
+        <span>using Angular</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+@if (showScrollTop()) {
+  <button
+    type="button"
+    (click)="scrollToTop()"
+    aria-label="Scroll to top"
+    title="Scroll to top"
+    class="fixed bottom-5 right-5 z-40 inline-flex h-10 w-10 items-center justify-center rounded-full border bg-[var(--color-surface)] text-[var(--color-primary)] shadow-lg transition hover:bg-[var(--color-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 sm:bottom-7 sm:right-7"
+    [style.borderColor]="'var(--color-border)'"
+  >
+    <lucide-icon [img]="arrowUpIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+  </button>
+}
