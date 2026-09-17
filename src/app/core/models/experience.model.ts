@@ -1,7 +1,10 @@
+export type ExperienceType = 'employment' | 'career-break';
+
 export interface Experience {
   id: string;
-  company: string;
-  position: string;
+  type?: ExperienceType;
+  company?: string;
+  position?: string;
   period: {
     start: string;
     end: string | null;

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Github, Linkedin, LucideAngularModule, Mail, Menu, Moon, Sun, X, type LucideIconData } from 'lucide-angular';
 import { SocialLink } from '../../core/models/social.model';
@@ -26,6 +26,9 @@ export class NavbarComponent {
 
   protected readonly mobileMenuOpen = signal(false);
   protected readonly socialLinks = signal<SocialLink[]>([]);
+  protected readonly visibleSocialLinks = computed(() =>
+    this.socialLinks().filter(link => ['linkedin', 'github', 'email'].includes(link.platform.toLowerCase()))
+  );
   private readonly portfolioData = inject(PortfolioDataService);
 
   protected readonly navItems: NavItem[] = [
@@ -91,13 +94,6 @@ export class NavbarComponent {
     return this.themeService.themeMode() === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
   }
 
-  protected getVisibleSocialLinks(): SocialLink[] {
-    return this.socialLinks().filter(link => {
-      const platform = link.platform.toLowerCase();
-      return ['linkedin', 'github', 'email'].includes(platform);
-    });
-  }
-
   protected getSocialIcon(platform: string): LucideIconData {
     const normalized = platform.toLowerCase();
     if (normalized === 'linkedin') {
@@ -107,6 +103,15 @@ export class NavbarComponent {
       return Github;
     }
     return Mail;
+  }
+
+  protected getSocialUrl(social: SocialLink): string {
+    if (social.platform.toLowerCase() !== 'email') {
+      return social.url;
+    }
+
+    const email = social.url.replace(/^mailto:/i, '');
+    return `mailto:${email}`;
   }
 
   protected getThemeIcon(): LucideIconData {

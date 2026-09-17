@@ -1,23 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { AfterViewInit, Component, computed, DestroyRef, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { RouterLink } from '@angular/router';
 import {
   ArrowRight,
-  Briefcase,
-  ClipboardList,
+  ArrowUp,
   Code,
   Database,
   Download,
+  Eye,
   ExternalLink,
-  Gauge,
   Github,
   Layers2,
   Linkedin,
   LucideAngularModule,
   Mail,
   MapPin,
-  MonitorSmartphone,
   Network,
   Server,
   Shield,
@@ -27,8 +24,10 @@ import {
   type LucideIconData
 } from 'lucide-angular';
 import {
+  siApachecordova,
   siAngular,
   siBootstrap,
+  siCapacitor,
   siCss,
   siGit,
   siHtml5,
@@ -53,17 +52,19 @@ import { Project } from '../core/models/project.model';
 import { SkillCategory } from '../core/models/skills.model';
 import { SocialLink } from '../core/models/social.model';
 import { PortfolioDataService } from '../core/services/portfolio-data.service';
+import { calculateEmploymentMonths, formatEmploymentDuration } from '../core/utils/experience.utils';
 
 @Component({
   selector: 'app-me',
   standalone: true,
-  imports: [CommonModule, RouterLink, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule],
   templateUrl: './me.html',
   styleUrl: './me.scss'
 })
-export class MeComponent implements OnInit {
+export class MeComponent implements OnInit, AfterViewInit {
   private readonly portfolioData = inject(PortfolioDataService);
   private readonly sanitizer = inject(DomSanitizer);
+  private readonly destroyRef = inject(DestroyRef);
   protected profile = signal<Profile | null>(null);
   protected experience = signal<Experience[]>([]);
   protected projects = signal<Project[]>([]);
@@ -71,7 +72,13 @@ export class MeComponent implements OnInit {
   protected socialLinks = signal<SocialLink[]>([]);
   protected isLoading = signal(true);
   protected profileImageError = signal(false);
+  protected showScrollTop = signal(false);
+  private readonly footerVisible = signal(false);
+  @ViewChild('siteFooter', { read: ElementRef })
+  private footerElement?: ElementRef<HTMLElement>;
+  protected readonly resumeUrl = '/assets/resume/Darshan_Kotadiya_Ionic_Angular_Resume.pdf';
   readonly currentYear = new Date().getFullYear();
+  private readonly technologySvgCache = new Map<string, SafeHtml | null>();
 
   readonly techStack = [
     { label: 'Angular', key: 'angular' },
@@ -86,6 +93,8 @@ export class MeComponent implements OnInit {
   private readonly technologySvgMap = new Map<string, string>([
     ['angular', siAngular.svg],
     ['angular material', siAngular.svg],
+    ['capacitor', siCapacitor.svg],
+    ['cordova', siApachecordova.svg],
     ['typescript', siTypescript.svg],
     ['javascript', siJavascript.svg],
     ['ionic', siIonic.svg],
@@ -120,33 +129,24 @@ export class MeComponent implements OnInit {
     { position: 'left-[10%] top-[12%]', size: 'h-3 w-3', color: 'bg-gradient-to-r from-fuchsia-500 to-violet-500' }
   ];
 
-  readonly snapshotCards = [
-    { value: '3.5+ Years', detail: 'Professional experience' },
+  protected readonly snapshotCards = computed(() => [
+    { value: formatEmploymentDuration(calculateEmploymentMonths(this.experience())), detail: 'Professional experience' },
     { value: 'Angular Focus', detail: 'Frontend engineering' },
     { value: 'Web + Mobile', detail: 'Cross-platform delivery' },
     { value: 'Enterprise Applications', detail: 'Business workflows' }
-  ];
-
-  readonly capabilityIcons = {
-    'Enterprise Web Applications': Code,
-    'Hybrid Mobile Applications': Smartphone,
-    'API-Driven Applications': Server,
-    'Frontend Engineering': Layers2
-  };
+  ]);
 
   protected readonly mapPinIcon = MapPin;
   protected readonly mailIcon = Mail;
   protected readonly downloadIcon = Download;
+  protected readonly eyeIcon = Eye;
   protected readonly arrowRightIcon = ArrowRight;
+  protected readonly arrowUpIcon = ArrowUp;
   protected readonly externalLinkIcon = ExternalLink;
-  protected readonly briefcaseIcon = Briefcase;
   protected readonly shieldIcon = Shield;
-  protected readonly gaugeIcon = Gauge;
-  protected readonly clipboardIcon = ClipboardList;
   protected readonly sparklesIcon = Sparkles;
   protected readonly databaseIcon = Database;
   protected readonly zapIcon = Zap;
-  protected readonly monitorSmartphoneIcon = MonitorSmartphone;
 
   protected readonly nameParts = computed(() => {
     const fullName = this.profile()?.name ?? 'Darshan Kotadiya';
@@ -216,20 +216,28 @@ export class MeComponent implements OnInit {
 
   protected getTechnologySvg(tech: string): SafeHtml | null {
     const normalized = tech.trim().toLowerCase();
+    if (this.technologySvgCache.has(normalized)) {
+      return this.technologySvgCache.get(normalized) ?? null;
+    }
+
     const svg = this.technologySvgMap.get(normalized) ?? null;
     if (!svg) {
+      this.technologySvgCache.set(normalized, null);
       return null;
     }
     if (!svg.length) {
+      this.technologySvgCache.set(normalized, null);
       return null;
     }
 
-    return this.sanitizer.bypassSecurityTrustHtml(
+    const safeSvg = this.sanitizer.bypassSecurityTrustHtml(
       svg.replace(
         '<svg ',
         '<svg aria-hidden="true" fill="currentColor" width="18" height="18" class="h-4 w-4 shrink-0" '
       )
     );
+    this.technologySvgCache.set(normalized, safeSvg);
+    return safeSvg;
   }
 
   protected getSkillSvg(skill: string): SafeHtml | null {
@@ -278,13 +286,6 @@ export class MeComponent implements OnInit {
     return Sparkles;
   }
 
-  protected getFooterSocialLinks(): SocialLink[] {
-    return this.socialLinks().filter(link => {
-      const platform = link.platform.toLowerCase();
-      return ['linkedin', 'github', 'email'].includes(platform);
-    });
-  }
-
   protected getSocialIcon(platform: string): LucideIconData {
     const normalized = platform.toLowerCase();
     if (normalized === 'linkedin') {
@@ -297,6 +298,12 @@ export class MeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const onScroll = (): void => {
+      this.updateScrollTopVisibility();
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    this.destroyRef.onDestroy(() => window.removeEventListener('scroll', onScroll));
+
     this.portfolioData.getProfile().subscribe({
       next: (data: Profile) => {
         this.profile.set(data);
@@ -344,7 +351,37 @@ export class MeComponent implements OnInit {
   protected scrollToSection(sectionId: string): void {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: this.prefersReducedMotion() ? 'auto' : 'smooth' });
     }
+  }
+
+  protected getContactUrl(): string {
+    const email = this.profile()?.email;
+    return email ? `mailto:${email}` : 'mailto:';
+  }
+
+  protected scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: this.prefersReducedMotion() ? 'auto' : 'smooth' });
+  }
+
+  private prefersReducedMotion(): boolean {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  ngAfterViewInit(): void {
+    if (!this.footerElement) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      this.footerVisible.set(entry.isIntersecting);
+      this.updateScrollTopVisibility();
+    });
+    observer.observe(this.footerElement.nativeElement);
+    this.destroyRef.onDestroy(() => observer.disconnect());
+  }
+
+  private updateScrollTopVisibility(): void {
+    this.showScrollTop.set(window.scrollY > 480 && !this.footerVisible());
   }
 }

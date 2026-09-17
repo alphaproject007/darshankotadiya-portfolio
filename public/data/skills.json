@@ -20,7 +20,9 @@
     {
       "name": "Mobile",
       "skills": [
-        "Ionic"
+        "Ionic",
+        "Capacitor",
+        "Cordova"
       ]
     },
     {
@@ -36,7 +38,8 @@
       "name": "Testing",
       "skills": [
         "Jasmine",
-        "Karma"
+        "Karma",
+        "Playwright"
       ]
     },
     {

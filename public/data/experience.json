@@ -1,5 +1,16 @@
 [
   {
+    "id": "career-break-2026",
+    "type": "career-break",
+    "period": {
+      "start": "2026-05",
+      "end": null
+    },
+    "description": "Following organizational restructuring, I am currently exploring a stable long-term opportunity where I can contribute my frontend, mobile, and full-stack engineering experience while continuing to grow professionally.",
+    "technologies": [],
+    "highlights": []
+  },
+  {
     "id": "gemba-concepts",
     "company": "Gemba Concepts Pvt. Ltd.",
     "position": "Software Developer Engineer",
@@ -64,8 +75,8 @@
     "company": "Tadvid Info Technologies",
     "position": "Software Engineer",
     "period": {
-      "start": "2022-05",
-      "end": "2024-02"
+      "start": "2022-08",
+      "end": "2023-12"
     },
     "description": "Contributed to Angular and Ionic applications for dashboards, alerts, and workflow-driven features across agriculture and field operations data.",
     "technologies": [
@@ -88,4 +99,3 @@
     ]
   }
 ]
-

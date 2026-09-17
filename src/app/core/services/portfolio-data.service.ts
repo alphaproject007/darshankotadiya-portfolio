@@ -33,7 +33,7 @@ export class PortfolioDataService {
           console.warn('Failed to load profile.json');
           return of({
             name: 'Darshan Kotadiya',
-            title: 'Full-Stack Software Engineer',
+            title: 'Software Engineer | Web, Mobile & Backend Development',
             bio: '',
             email: '',
             location: ''

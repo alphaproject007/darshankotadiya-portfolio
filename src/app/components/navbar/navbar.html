@@ -34,16 +34,16 @@
       </div>
 
       <div class="flex items-center gap-2">
-        @for (social of getVisibleSocialLinks(); track social.platform) {
+        @for (social of visibleSocialLinks(); track social.platform) {
           <a
-            [href]="social.url"
+            [href]="getSocialUrl(social)"
             [attr.aria-label]="social.platform"
             [attr.title]="social.platform"
             class="flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-200 hover:bg-[var(--color-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
             [style.borderColor]="'var(--color-border)'"
             [style.color]="'var(--color-text)'"
-            target="_blank"
-            rel="noreferrer"
+            [attr.target]="social.platform.toLowerCase() === 'email' ? null : '_blank'"
+            [attr.rel]="social.platform.toLowerCase() === 'email' ? null : 'noopener noreferrer'"
           >
             <lucide-icon [img]="getSocialIcon(social.platform)" class="h-4 w-4" aria-hidden="true"></lucide-icon>
           </a>

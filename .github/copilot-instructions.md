@@ -7,7 +7,7 @@ Always read `PORTFOLIO-SPEC.md` before making architectural or feature changes.
 This is a professional portfolio for Darshan Kotadiya.
 
 Positioning:
-- Full-Stack Software Engineer
+- Software Engineer — Frontend, Mobile & Full-Stack
 - Angular-focused frontend developer
 - Java / Spring Boot working knowledge
 - Web + Ionic mobile development

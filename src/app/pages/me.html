@@ -83,16 +83,15 @@
               View My Work
             </button>
 
-            <button
-              type="button"
-              [routerLink]="'/resume'"
-              aria-label="View resume"
+            <a
+              [href]="getContactUrl()"
+              aria-label="Contact me by email"
               class="inline-flex w-full items-center justify-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold text-[var(--color-text)] transition-all duration-200 hover:bg-[var(--color-hover)] sm:w-auto"
               [style.borderColor]="'var(--color-border)'"
             >
-              <lucide-icon [img]="downloadIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
-              View Resume
-            </button>
+              <lucide-icon [img]="mailIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+              Contact Me
+            </a>
           </div>
         </div>
 
@@ -183,7 +182,7 @@
 
    <div class="overflow-hidden rounded-[1.75rem] border" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface-solid)'">
      <div class="grid gap-0 md:grid-cols-2 xl:grid-cols-4">
-       @for (card of snapshotCards; track card.value) {
+       @for (card of snapshotCards(); track card.value) {
          <article
            class="animate-card-in border-b border-r p-5 transition-all duration-300 hover:bg-[var(--color-hover)] last:border-b-0 md:last:border-r-0 xl:last:border-r-0"
            [style.borderColor]="'var(--color-border)'"
@@ -335,16 +334,14 @@
                   class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"
                 >
                   <div class="min-w-0">
-                    <div
-                      class="text-xs font-semibold uppercase tracking-[0.18em] text-blue-500 dark:text-blue-400"
-                    >
-                      {{ job.company }}
+                    <div class="text-xs font-semibold uppercase tracking-[0.18em] text-blue-500 dark:text-blue-400">
+                      {{ job.type === 'career-break' ? 'Career Break' : job.company }}
                     </div>
 
                     <h3
                       class="mt-1 text-xl font-semibold text-[var(--color-text)]"
                     >
-                      {{ job.position }}
+                      {{ job.type === 'career-break' ? 'Exploring the next long-term opportunity' : job.position }}
                     </h3>
                   </div>
 
@@ -359,7 +356,7 @@
                 </div>
 
                 <!-- Most Recent -->
-                @if (first) {
+                @if (first && job.type !== 'career-break') {
                   <span
                     class="mt-3 inline-flex rounded-full border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-500"
                     [style.borderColor]="'var(--color-border)'"
@@ -390,6 +387,16 @@
                       </li>
                     }
                   </ul>
+                }
+
+                @if (job.type === 'career-break') {
+                  <span
+                    class="mt-3 inline-flex rounded-full border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-600 dark:text-amber-300"
+                    [style.borderColor]="'var(--color-border)'"
+                    [style.backgroundColor]="'var(--color-primary-soft)'"
+                  >
+                    Current status
+                  </span>
                 }
 
                 <!-- Technologies -->
@@ -522,6 +529,34 @@
                 }
               </ul>
             }
+
+            @if (project.links?.website || project.links?.demo || project.links?.github) {
+              <div class="mt-5 flex flex-wrap gap-3">
+                @if (project.links?.website || project.links?.demo) {
+                  <a
+                    [href]="project.links?.website || project.links?.demo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
+                  >
+                    <lucide-icon [img]="externalLinkIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+                    Live Project
+                  </a>
+                }
+
+                @if (project.links?.github) {
+                  <a
+                    [href]="project.links?.github"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+                  >
+                    <lucide-icon [img]="externalLinkIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+                    Source
+                  </a>
+                }
+              </div>
+            }
           </article>
         }
       </div>
@@ -624,7 +659,7 @@
           </p>
 
           <ul
-                      class="mt-auto space-y-2 text-sm leading-6 text-[var(--color-text-muted)]"
+                      class="space-y-2 text-sm leading-6 text-[var(--color-text-muted)]"
           >
             @for (point of capability.points; track point) {
               <li class="flex items-start gap-2">
@@ -648,15 +683,20 @@
   <div class="mx-auto max-w-4xl px-3 sm:px-6 lg:px-8 text-center">
   <div class="w-full rounded-[1.75rem] border p-5 shadow-[0_12px_30px_rgba(15,23,42,0.04)] sm:p-6" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
     <p class="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-text-muted)]">Let's connect</p>
-    <h3 class="mt-2 text-2xl font-semibold tracking-tight text-[var(--color-text)]">Open to relevant Angular / frontend opportunities.</h3>
+    <h3 class="mt-2 text-2xl font-semibold tracking-tight text-[var(--color-text)]">Software Engineer | Web, Mobile &amp; Backend Development</h3>
 
     <div class="mt-5 flex flex-wrap justify-center gap-3">
-        <a routerLink="/resume" class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="View resume">
-          <lucide-icon [img]="downloadIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+        <a [href]="resumeUrl" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="View resume">
+          <lucide-icon [img]="eyeIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
           View Resume
         </a>
 
-      <a routerLink="/connect" class="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Contact me">
+        <a [href]="resumeUrl" download class="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Download resume">
+          <lucide-icon [img]="downloadIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+          Download Resume
+        </a>
+
+      <a [href]="getContactUrl()" class="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Contact me by email">
           <lucide-icon [img]="mailIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
         Contact Me
         </a>
@@ -665,7 +705,7 @@
   </div>
 </section>
 
-<footer class="border-t py-4 sm:py-5" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
+<footer #siteFooter class="border-t py-4 sm:py-5" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col items-center justify-between gap-3 text-sm text-[var(--color-text-muted)] sm:flex-row sm:items-center">
       <div>© {{ currentYear }} Darshan Kotadiya. All rights reserved.</div>
@@ -678,3 +718,16 @@
     </div>
   </div>
 </footer>
+
+@if (showScrollTop()) {
+  <button
+    type="button"
+    (click)="scrollToTop()"
+    aria-label="Scroll to top"
+    title="Scroll to top"
+    class="fixed bottom-5 right-5 z-40 inline-flex h-10 w-10 items-center justify-center rounded-full border bg-[var(--color-surface)] text-[var(--color-primary)] shadow-lg transition hover:bg-[var(--color-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 sm:bottom-7 sm:right-7"
+    [style.borderColor]="'var(--color-border)'"
+  >
+    <lucide-icon [img]="arrowUpIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+  </button>
+}
