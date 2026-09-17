@@ -14,6 +14,10 @@
   color: transparent;
 }
 
+:host-context(.dark) .linkedin-brand-icon {
+  filter: invert(1);
+}
+
 // Theme toggle icon animation
 @keyframes theme-in {
   from {
@@ -35,4 +39,3 @@
     animation: none;
   }
 }
-

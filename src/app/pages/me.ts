@@ -2,27 +2,25 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, computed, DestroyRef, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import {
-  ArrowRight,
-  ArrowUp,
-  Code,
-  Database,
-  Download,
-  Eye,
-  ExternalLink,
-  Github,
-  Layers2,
-  Linkedin,
-  LucideAngularModule,
-  Mail,
-  MapPin,
-  Network,
-  Server,
-  Shield,
-  Smartphone,
-  Sparkles,
-  Zap,
-  type LucideIconData
-} from 'lucide-angular';
+  LucideArrowRight,
+  LucideArrowUp,
+  LucideCode,
+  LucideDatabase,
+  LucideDownload,
+  LucideDynamicIcon,
+  LucideEye,
+  LucideExternalLink,
+  LucideLayers2,
+  LucideMail,
+  LucideMapPin,
+  LucideNetwork,
+  LucideServer,
+  LucideShield,
+  LucideSmartphone,
+  LucideSparkles,
+  LucideZap,
+  type LucideIcon
+} from '@lucide/angular';
 import {
   siApachecordova,
   siAngular,
@@ -57,7 +55,7 @@ import { calculateEmploymentMonths, formatEmploymentDuration } from '../core/uti
 @Component({
   selector: 'app-me',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideDynamicIcon],
   templateUrl: './me.html',
   styleUrl: './me.scss'
 })
@@ -86,7 +84,7 @@ export class MeComponent implements OnInit, AfterViewInit {
     { label: 'Ionic', key: 'ionic' },
     { label: 'Java', key: 'java' },
     { label: 'Spring Boot', key: 'spring boot' },
-    { label: 'REST APIs', key: 'rest apis', icon: Server },
+    { label: 'REST APIs', key: 'rest apis', icon: LucideServer },
     { label: 'RxJS', key: 'rxjs' }
   ];
 
@@ -136,17 +134,17 @@ export class MeComponent implements OnInit, AfterViewInit {
     { value: 'Enterprise Applications', detail: 'Business workflows' }
   ]);
 
-  protected readonly mapPinIcon = MapPin;
-  protected readonly mailIcon = Mail;
-  protected readonly downloadIcon = Download;
-  protected readonly eyeIcon = Eye;
-  protected readonly arrowRightIcon = ArrowRight;
-  protected readonly arrowUpIcon = ArrowUp;
-  protected readonly externalLinkIcon = ExternalLink;
-  protected readonly shieldIcon = Shield;
-  protected readonly sparklesIcon = Sparkles;
-  protected readonly databaseIcon = Database;
-  protected readonly zapIcon = Zap;
+  protected readonly mapPinIcon = LucideMapPin;
+  protected readonly mailIcon = LucideMail;
+  protected readonly downloadIcon = LucideDownload;
+  protected readonly eyeIcon = LucideEye;
+  protected readonly arrowRightIcon = LucideArrowRight;
+  protected readonly arrowUpIcon = LucideArrowUp;
+  protected readonly externalLinkIcon = LucideExternalLink;
+  protected readonly shieldIcon = LucideShield;
+  protected readonly sparklesIcon = LucideSparkles;
+  protected readonly databaseIcon = LucideDatabase;
+  protected readonly zapIcon = LucideZap;
 
   protected readonly nameParts = computed(() => {
     const fullName = this.profile()?.name ?? 'Darshan Kotadiya';
@@ -176,7 +174,7 @@ export class MeComponent implements OnInit, AfterViewInit {
         'Forms',
         'Data-driven interfaces'
       ],
-      icon: Code
+      icon: LucideCode
     },
     {
       title: 'Hybrid Mobile Applications',
@@ -187,7 +185,7 @@ export class MeComponent implements OnInit, AfterViewInit {
         'Routing',
         'Offline-ready product experiences'
       ],
-      icon: Smartphone
+      icon: LucideSmartphone
     },
     {
       title: 'API-Driven Applications',
@@ -198,7 +196,7 @@ export class MeComponent implements OnInit, AfterViewInit {
         'Secure data flows',
         'Operational product workflows'
       ],
-      icon: Server
+      icon: LucideServer
     },
     {
       title: 'Frontend Engineering',
@@ -210,7 +208,7 @@ export class MeComponent implements OnInit, AfterViewInit {
         'Performance',
         'Responsive UI'
       ],
-      icon: Layers2
+      icon: LucideLayers2
     }
   ];
 
@@ -244,10 +242,10 @@ export class MeComponent implements OnInit, AfterViewInit {
     return this.getTechnologySvg(skill);
   }
 
-  protected getTechnologyIcon(tech: string): LucideIconData | null {
+  protected getTechnologyIcon(tech: string): LucideIcon | null {
     const normalized = tech.trim().toLowerCase();
     if (normalized === 'rest apis') {
-      return Network;
+      return LucideNetwork;
     }
     if (
       normalized.includes('jwt') ||
@@ -255,46 +253,40 @@ export class MeComponent implements OnInit, AfterViewInit {
       normalized.includes('rbac') ||
       normalized.includes('role-based')
     ) {
-      return Shield;
+      return LucideShield;
     }
     return null;
   }
 
-  protected getCategoryIcon(categoryName: string): LucideIconData {
+  protected getCategoryIcon(categoryName: string): LucideIcon {
     const normalized = categoryName.toLowerCase();
     if (normalized.includes('frontend')) {
-      return Code;
+      return LucideCode;
     }
     if (normalized.includes('mobile')) {
-      return Smartphone;
+      return LucideSmartphone;
     }
     if (normalized.includes('backend') || normalized.includes('api')) {
-      return Server;
+      return LucideServer;
     }
     if (normalized.includes('testing')) {
-      return Shield;
+      return LucideShield;
     }
     if (normalized.includes('tools')) {
-      return Zap;
+      return LucideZap;
     }
     if (normalized.includes('security')) {
-      return Shield;
+      return LucideShield;
     }
     if (normalized.includes('database')) {
-      return Database;
+      return LucideDatabase;
     }
-    return Sparkles;
+    return LucideSparkles;
   }
 
-  protected getSocialIcon(platform: string): LucideIconData {
+  protected getSocialIcon(platform: string): LucideIcon {
     const normalized = platform.toLowerCase();
-    if (normalized === 'linkedin') {
-      return Linkedin;
-    }
-    if (normalized === 'github') {
-      return Github;
-    }
-    return Mail;
+    return LucideMail;
   }
 
   ngOnInit(): void {

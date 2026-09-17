@@ -45,7 +45,13 @@
             [attr.target]="social.platform.toLowerCase() === 'email' ? null : '_blank'"
             [attr.rel]="social.platform.toLowerCase() === 'email' ? null : 'noopener noreferrer'"
           >
-            <lucide-icon [img]="getSocialIcon(social.platform)" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+            @if (social.platform.toLowerCase() === 'linkedin') {
+              <img src="/assets/icons/linkedin.svg" alt="" class="linkedin-brand-icon h-4 w-4" aria-hidden="true">
+            } @else if (getSocialSvg(social.platform); as socialSvg) {
+              <span [innerHTML]="socialSvg" class="inline-flex"></span>
+            } @else {
+              <svg [lucideIcon]="getSocialIcon(social.platform)" class="h-4 w-4" aria-hidden="true"></svg>
+            }
           </a>
         }
 
@@ -59,7 +65,7 @@
           [style.borderColor]="'var(--color-border)'"
           [style.color]="'var(--color-text)'"
         >
-          <lucide-icon [img]="getThemeIcon()" class="h-4 w-4 animate-theme-in" aria-hidden="true"></lucide-icon>
+          <svg [lucideIcon]="getThemeIcon()" class="h-4 w-4 animate-theme-in" aria-hidden="true"></svg>
         </button>
 
         <button
@@ -71,7 +77,7 @@
           [style.backgroundColor]="'var(--color-hover)'"
           [style.borderColor]="'var(--color-border)'"
         >
-          <lucide-icon [img]="getMenuIcon()" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+          <svg [lucideIcon]="getMenuIcon()" class="h-4 w-4" aria-hidden="true"></svg>
         </button>
       </div>
     </div>

@@ -1,7 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
-import { Github, Linkedin, LucideAngularModule, Mail, Menu, Moon, Sun, X, type LucideIconData } from 'lucide-angular';
+import {
+  LucideDynamicIcon,
+  LucideMail,
+  LucideMenu,
+  LucideMoon,
+  LucideSun,
+  LucideX,
+  type LucideIcon
+} from '@lucide/angular';
+import { siGithub } from 'simple-icons';
 import { SocialLink } from '../../core/models/social.model';
 import { PortfolioDataService } from '../../core/services/portfolio-data.service';
 import { ThemeService } from '../../core/services/theme.service';
@@ -15,7 +25,7 @@ interface NavItem {
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, LucideAngularModule],
+  imports: [CommonModule, RouterLink, LucideDynamicIcon],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss'
 })
@@ -23,6 +33,7 @@ export class NavbarComponent {
   protected readonly themeService = inject(ThemeService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly router = inject(Router);
+  private readonly sanitizer = inject(DomSanitizer);
 
   protected readonly mobileMenuOpen = signal(false);
   protected readonly socialLinks = signal<SocialLink[]>([]);
@@ -94,15 +105,23 @@ export class NavbarComponent {
     return this.themeService.themeMode() === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
   }
 
-  protected getSocialIcon(platform: string): LucideIconData {
+  protected getSocialIcon(platform: string): LucideIcon {
+    return LucideMail;
+  }
+
+  protected getSocialSvg(platform: string): SafeHtml | null {
     const normalized = platform.toLowerCase();
-    if (normalized === 'linkedin') {
-      return Linkedin;
+    const svg = normalized === 'github' ? siGithub.svg : null;
+    if (!svg) {
+      return null;
     }
-    if (normalized === 'github') {
-      return Github;
-    }
-    return Mail;
+
+    return this.sanitizer.bypassSecurityTrustHtml(
+      svg.replace(
+        '<svg ',
+        '<svg aria-hidden="true" fill="currentColor" width="18" height="18" class="h-4 w-4" '
+      )
+    );
   }
 
   protected getSocialUrl(social: SocialLink): string {
@@ -114,12 +133,12 @@ export class NavbarComponent {
     return `mailto:${email}`;
   }
 
-  protected getThemeIcon(): LucideIconData {
-    return this.themeService.themeMode() === 'dark' ? Sun : Moon;
+  protected getThemeIcon(): LucideIcon {
+    return this.themeService.themeMode() === 'dark' ? LucideSun : LucideMoon;
   }
 
-  protected getMenuIcon(): LucideIconData {
-    return this.mobileMenuOpen() ? X : Menu;
+  protected getMenuIcon(): LucideIcon {
+    return this.mobileMenuOpen() ? LucideX : LucideMenu;
   }
 
   private setupKeyboardHandling(): void {

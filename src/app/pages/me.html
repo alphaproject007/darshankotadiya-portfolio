@@ -64,7 +64,7 @@
                   @if (getTechnologySvg(tech.key)) {
                     <span [innerHTML]="getTechnologySvg(tech.key)" class="inline-flex text-current"></span>
                   } @else if (tech.icon) {
-                    <lucide-icon [img]="tech.icon" class="h-4 w-4 text-[var(--color-primary)]" aria-hidden="true"></lucide-icon>
+                    <svg [lucideIcon]="tech.icon" class="h-4 w-4 text-[var(--color-primary)]" aria-hidden="true"></svg>
                   }
                   <span>{{ tech.label }}</span>
                 </span>
@@ -79,7 +79,7 @@
               aria-label="View projects"
               class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 sm:w-auto"
             >
-              <lucide-icon [img]="arrowRightIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+              <svg [lucideIcon]="arrowRightIcon" class="h-4 w-4" aria-hidden="true"></svg>
               View My Work
             </button>
 
@@ -89,7 +89,7 @@
               class="inline-flex w-full items-center justify-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold text-[var(--color-text)] transition-all duration-200 hover:bg-[var(--color-hover)] sm:w-auto"
               [style.borderColor]="'var(--color-border)'"
             >
-              <lucide-icon [img]="mailIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+              <svg [lucideIcon]="mailIcon" class="h-4 w-4" aria-hidden="true"></svg>
               Contact Me
             </a>
           </div>
@@ -139,7 +139,7 @@
             <div class="mt-5 grid gap-3 sm:grid-cols-2">
               <div class="flex items-center gap-3 rounded-2xl border px-3 py-2.5 text-sm text-[var(--color-text)]" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
                 <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/10 text-blue-500 dark:text-blue-400">
-                  <lucide-icon [img]="mapPinIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+                  <svg [lucideIcon]="mapPinIcon" class="h-4 w-4" aria-hidden="true"></svg>
                 </span>
                 <span>{{ profile()!.location }}</span>
               </div>
@@ -147,7 +147,7 @@
               @if (profile()!.availability) {
                 <div class="flex items-center gap-3 rounded-2xl border px-3 py-2.5 text-sm text-[var(--color-text)]" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
                   <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                    <lucide-icon [img]="zapIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+                    <svg [lucideIcon]="zapIcon" class="h-4 w-4" aria-hidden="true"></svg>
                   </span>
                   <span>{{ profile()!.availability }}</span>
                 </div>
@@ -506,7 +506,7 @@
                       <span [innerHTML]="getTechnologySvg(tech)" class="inline-flex text-current"></span>
                     }
                     @else if (getTechnologyIcon(tech)) {
-                      <lucide-icon [img]="getTechnologyIcon(tech)!" class="h-4 w-4 shrink-0 text-[var(--color-primary)]" aria-hidden="true"></lucide-icon>
+                      <svg [lucideIcon]="getTechnologyIcon(tech)!" class="h-4 w-4 shrink-0 text-[var(--color-primary)]" aria-hidden="true"></svg>
                     }
                     <span>{{ tech }}</span>
                   </span>
@@ -539,7 +539,7 @@
                     rel="noopener noreferrer"
                     class="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
                   >
-                    <lucide-icon [img]="externalLinkIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+                    <svg [lucideIcon]="externalLinkIcon" class="h-4 w-4" aria-hidden="true"></svg>
                     Live Project
                   </a>
                 }
@@ -551,7 +551,7 @@
                     rel="noopener noreferrer"
                     class="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
                   >
-                    <lucide-icon [img]="externalLinkIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+                    <svg [lucideIcon]="externalLinkIcon" class="h-4 w-4" aria-hidden="true"></svg>
                     Source
                   </a>
                 }
@@ -588,7 +588,7 @@
           <article class="rounded-[1.5rem] border p-5 shadow-[0_10px_30px_rgba(15,23,42,0.03)] transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/40" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
             <div class="mb-4 flex items-center gap-3">
               <span class="flex h-8 w-8 items-center justify-center rounded-xl border bg-blue-500/10 text-blue-500 dark:text-blue-400" [style.borderColor]="'var(--color-border)'">
-                <lucide-icon [img]="getCategoryIcon(category.name)" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+                <svg [lucideIcon]="getCategoryIcon(category.name)" class="h-4 w-4" aria-hidden="true"></svg>
               </span>
               <h3 class="text-lg font-semibold text-[var(--color-text)]">{{ category.name }}</h3>
             </div>
@@ -599,7 +599,7 @@
                   @if (getSkillSvg(skill)) {
                     <span [innerHTML]="getSkillSvg(skill)" class="inline-flex text-current"></span>
                   } @else if (getTechnologyIcon(skill)) {
-                    <lucide-icon [img]="getTechnologyIcon(skill)!" class="h-4 w-4 shrink-0 text-[var(--color-primary)]" aria-hidden="true"></lucide-icon>
+                    <svg [lucideIcon]="getTechnologyIcon(skill)!" class="h-4 w-4 shrink-0 text-[var(--color-primary)]" aria-hidden="true"></svg>
                   }
                   <span>{{ skill }}</span>
                 </span>
@@ -643,7 +643,7 @@
         >
           <div class="mb-4 flex items-center gap-3">
             <span class="flex h-10 w-10 items-center justify-center rounded-xl border bg-blue-500/10 text-blue-500 dark:text-blue-400" [style.borderColor]="'var(--color-border)'">
-              <lucide-icon [img]="capability.icon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+              <svg [lucideIcon]="capability.icon" class="h-4 w-4" aria-hidden="true"></svg>
             </span>
             <h3
               class="text-xl font-semibold text-[var(--color-text)]"
@@ -687,17 +687,17 @@
 
     <div class="mt-5 flex flex-wrap justify-center gap-3">
         <a [href]="resumeUrl" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="View resume">
-          <lucide-icon [img]="eyeIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+          <svg [lucideIcon]="eyeIcon" class="h-4 w-4" aria-hidden="true"></svg>
           View Resume
         </a>
 
         <a [href]="resumeUrl" download class="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Download resume">
-          <lucide-icon [img]="downloadIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+          <svg [lucideIcon]="downloadIcon" class="h-4 w-4" aria-hidden="true"></svg>
           Download Resume
         </a>
 
       <a [href]="getContactUrl()" class="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Contact me by email">
-          <lucide-icon [img]="mailIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+          <svg [lucideIcon]="mailIcon" class="h-4 w-4" aria-hidden="true"></svg>
         Contact Me
         </a>
       </div>
@@ -728,6 +728,6 @@
     class="fixed bottom-5 right-5 z-40 inline-flex h-10 w-10 items-center justify-center rounded-full border bg-[var(--color-surface)] text-[var(--color-primary)] shadow-lg transition hover:bg-[var(--color-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 sm:bottom-7 sm:right-7"
     [style.borderColor]="'var(--color-border)'"
   >
-    <lucide-icon [img]="arrowUpIcon" class="h-4 w-4" aria-hidden="true"></lucide-icon>
+    <svg [lucideIcon]="arrowUpIcon" class="h-4 w-4" aria-hidden="true"></svg>
   </button>
 }
