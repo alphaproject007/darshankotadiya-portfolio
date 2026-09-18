@@ -5,33 +5,77 @@
       "skills": [
         "Angular",
         "Angular Material",
+        "TypeScript",
+        "JavaScript (ES6+)",
         "RxJS",
         "NgRx / State Management",
-        "TypeScript",
-        "JavaScript",
+        "Signals",
         "HTML5",
         "CSS3",
         "Bootstrap",
         "Reactive Forms",
+        "Dynamic Forms",
         "Component-Based Architecture",
         "Responsive Design"
       ]
     },
     {
-      "name": "Mobile",
+      "name": "Angular Engineering",
       "skills": [
-        "Ionic",
-        "Capacitor",
-        "Cordova"
+        "Angular Routing",
+        "Route Guards",
+        "Dependency Injection",
+        "Component Lifecycle",
+        "Lazy Loading",
+        "Virtual Scrolling",
+        "Reusable Components",
+        "State Management",
+        "Performance Optimization",
+        "Cross-Browser Compatibility",
+        "SPA Development"
       ]
     },
     {
-      "name": "Backend / API",
+      "name": "Mobile",
+      "skills": [
+        "Ionic Framework",
+        "Capacitor",
+        "Cordova",
+        "Cross-Platform Mobile Development",
+        "Responsive Mobile UI",
+        "Android Builds",
+        "iOS Builds",
+        "Android Studio",
+        "Xcode",
+        "Mobile Application Deployment",
+        "Push Notifications",
+        "Offline Capabilities",
+        "Fingerprint Authentication",
+        "Language Switching"
+      ]
+    },
+    {
+      "name": "Authentication & Integration",
+      "skills": [
+        "JWT Authentication",
+        "Session Management",
+        "Role-Based Access Control (RBAC)",
+        "Google Sign-In Integration",
+        "Apple Sign-In Integration",
+        "REST API Integration",
+        "Firebase APIs",
+        "Native Mobile Integration"
+      ]
+    },
+    {
+      "name": "Backend",
       "skills": [
         "Java (Working Knowledge)",
         "Spring Boot (Working Knowledge)",
         "REST APIs",
-        "Node.js (Basic)"
+        "JSON",
+        "Node.js (Basic)",
+        "SQL"
       ]
     },
     {
@@ -39,11 +83,12 @@
       "skills": [
         "Jasmine",
         "Karma",
+        "Unit Testing",
         "Playwright"
       ]
     },
     {
-      "name": "Tools",
+      "name": "Tools & Delivery",
       "skills": [
         "Git",
         "Bitbucket",
@@ -51,15 +96,10 @@
         "Postman",
         "Jenkins",
         "Webpack",
-        "GitHub Copilot"
-      ]
-    },
-    {
-      "name": "Security",
-      "skills": [
-        "JWT Authentication",
-        "Session Management",
-        "Role-Based Access Control (RBAC)"
+        "GitHub Copilot",
+        "VS Code",
+        "Prettier",
+        "CI/CD"
       ]
     },
     {
@@ -67,6 +107,26 @@
       "skills": [
         "MySQL",
         "PostgreSQL"
+      ]
+    },
+    {
+      "name": "Development Practices",
+      "skills": [
+        "Agile Scrum",
+        "SDLC",
+        "Code Reviews",
+        "Requirement Analysis",
+        "Client Collaboration",
+        "Debugging",
+        "Performance Optimization",
+        "Production Support"
+      ]
+    },
+    {
+      "name": "Additional Experience",
+      "skills": [
+        "React (Basic)",
+        "React Native (Basic)"
       ]
     }
   ]

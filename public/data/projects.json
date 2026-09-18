@@ -3,7 +3,7 @@
     "id": "gemba-connect",
     "company": "Gemba Concepts Pvt. Ltd.",
     "title": "Gemba Connect",
-    "description": "Metadata-driven Angular workflows for configurable enterprise operations with dynamic forms, reusable components, and RBAC-based access patterns.",
+    "description": "A low-code Angular platform with a Java-based backend, metadata-driven models, configurable workflows, dynamic forms, and RBAC.",
     "shortDescription": "Configurable enterprise workflows and metadata-driven operations.",
     "technologies": [
       "Angular",
@@ -21,7 +21,7 @@
     "highlights": [
       "Built configurable workflow experiences using metadata-driven patterns and reusable business components.",
       "Created dynamic forms and data-driven interfaces across inventory, purchase, sales, and logistics flows.",
-      "Supported secure API collaboration and role-based enterprise operations across production use cases."
+      "Worked across configurable data models, workflow definitions, dynamic forms, and role-based enterprise operations."
     ],
     "category": "web"
   },
@@ -29,7 +29,7 @@
     "id": "kenzol-erp",
     "company": "Gemba Concepts Pvt. Ltd.",
     "title": "Kenzol – Web & Mobile ERP Application",
-    "description": "Manufacturing ERP workflows covering inventory, production, logistics, and BOM-based planning through Angular and Ionic interfaces.",
+    "description": "An Angular and Ionic manufacturing ERP application covering inventory, BOM-based production planning, production, and logistics workflows.",
     "shortDescription": "Manufacturing ERP workflows across web and mobile interfaces.",
     "technologies": [
       "Angular",
@@ -48,7 +48,7 @@
     "highlights": [
       "Developed ERP-focused interfaces for manufacturing operations, inventory tracking, and production planning.",
       "Worked with BOM-based planning and logistics-facing workflows across multi-role user journeys.",
-      "Connected responsive web and mobile experiences to business APIs for operational clarity."
+      "Connected responsive web and mobile experiences to REST API workflows for operational clarity."
     ],
     "category": "hybrid"
   },
@@ -56,7 +56,7 @@
     "id": "quality-management-app",
     "company": "Gemba Concepts Pvt. Ltd.",
     "title": "Quality Management App",
-    "description": "Inspection and defect-tracking workflows built for configurable forms, dashboards, and role-based quality assurance processes.",
+    "description": "A React Native manufacturing quality app for inward, in-process, and final inspections, real-time dashboards, defect tracking, and memo management.",
     "shortDescription": "Inspection workflows and defect tracking for quality operations.",
     "technologies": [
       "React Native",
@@ -72,8 +72,8 @@
       "end": "2026-04"
     },
     "highlights": [
-      "Implemented inspection workflow screens with configurable forms and operational dashboards.",
-      "Built defect-tracking experiences with role-based access and improved audit readability.",
+      "Implemented inspection workflows with dynamic forms, image upload, role-based access, and operational dashboards.",
+      "Worked across inward, in-process, and final inspections with defect tracking and memo management.",
       "Supported Excel-based bulk import workflows for faster operational data entry."
     ],
     "category": "mobile"
@@ -82,7 +82,7 @@
     "id": "beacon",
     "company": "Swan Softweb Solutions",
     "title": "Beacon",
-    "description": "E-learning platform experiences for courses, assessments, virtual classrooms, and learner progress tracking built with Angular and Ionic.",
+    "description": "An Angular/Ionic e-learning platform for courses, virtual classrooms, assessments, progress tracking, and student/teacher workflows.",
     "shortDescription": "E-learning workflows for courses, assessments, and learner progress.",
     "technologies": [
       "Angular",
@@ -100,7 +100,7 @@
     "highlights": [
       "Delivered role-aware user journeys for learners, instructors, and administrators across academic workflows.",
       "Built reusable responsive interfaces for courses, assessments, and progress tracking features.",
-      "Worked with secure authentication and API-driven data flows for learning activities."
+      "Worked with secure authentication and API-driven data flows for learning activities and role-aware access."
     ],
     "category": "hybrid"
   },
@@ -108,7 +108,7 @@
     "id": "coding-ide",
     "company": "Swan Softweb Solutions",
     "title": "Coding IDE",
-    "description": "A development-focused experience for interactive coding workflows, personalized access, and real-time execution support.",
+    "description": "A React frontend and Node.js backend for web-based code execution, authentication, personalized access, and real-time execution workflows.",
     "shortDescription": "Real-time coding workflows with authentication and personalized access.",
     "technologies": [
       "React",
@@ -125,7 +125,7 @@
     "highlights": [
       "Worked on coding workflow experiences with interactive execution and personalized access control.",
       "Integrated authentication and access-aware user flows for secure development use cases.",
-      "Contributed to a fast, focused interface for coding and evaluation activities."
+      "Contributed to a focused interface for coding and evaluation activities with real-time execution workflows."
     ],
     "category": "web"
   },
@@ -133,7 +133,7 @@
     "id": "agridashboard",
     "company": "Tadvid Info Technologies",
     "title": "Agridashboard – Web and Mobile Application",
-    "description": "Agricultural monitoring dashboards for weather, soil, and crop data, with alerts, push notifications, and offline support for field operations.",
+    "description": "An Angular web and Ionic mobile application for weather, soil, and crop data with alerts, offline access/caching, push notifications, and predictive analytics.",
     "shortDescription": "Agricultural monitoring, alerts, and operational dashboards for field data.",
     "technologies": [
       "Angular",
@@ -150,10 +150,9 @@
     },
     "highlights": [
       "Built dashboards and alerting workflows for weather, soil, and crop monitoring use cases.",
-      "Delivered field-friendly mobile experiences with offline capabilities and notification support.",
-      "Supported operational dashboards and maintenance work for live agricultural data experiences."
+      "Delivered field-friendly mobile experiences with offline access/caching, push notifications, and mobile alerts.",
+      "Supported predictive analytics and satellite imagery workflows alongside ongoing maintenance for live agricultural data experiences."
     ],
     "category": "mobile"
   }
 ]
-

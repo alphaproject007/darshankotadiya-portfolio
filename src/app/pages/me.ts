@@ -25,8 +25,10 @@ import {
   siApachecordova,
   siAngular,
   siBootstrap,
+  siBitbucket,
   siCapacitor,
   siCss,
+  siFirebase,
   siGit,
   siHtml5,
   siIonic,
@@ -39,10 +41,13 @@ import {
   siOpenjdk,
   siPostman,
   siPostgresql,
+  siPrettier,
   siReact,
   siReactivex,
   siSpringboot,
-  siTypescript
+  siTypescript,
+  siWebpack,
+  siJson
 } from 'simple-icons';
 import { Profile } from '../core/models/profile.model';
 import { Experience } from '../core/models/experience.model';
@@ -95,14 +100,19 @@ export class MeComponent implements OnInit, AfterViewInit {
     ['cordova', siApachecordova.svg],
     ['typescript', siTypescript.svg],
     ['javascript', siJavascript.svg],
+    ['javascript (es6+)', siJavascript.svg],
     ['ionic', siIonic.svg],
+    ['ionic framework', siIonic.svg],
     ['spring boot', siSpringboot.svg],
     ['spring boot (working knowledge)', siSpringboot.svg],
     ['react', siReact.svg],
+    ['react (basic)', siReact.svg],
     ['react native', siReact.svg],
+    ['react native (basic)', siReact.svg],
     ['node.js', siNodedotjs.svg],
     ['node.js (basic)', siNodedotjs.svg],
     ['git', siGit.svg],
+    ['bitbucket', siBitbucket.svg],
     ['jira', siJira.svg],
     ['postman', siPostman.svg],
     ['jenkins', siJenkins.svg],
@@ -111,6 +121,10 @@ export class MeComponent implements OnInit, AfterViewInit {
     ['rxjs', siReactivex.svg],
     ['mysql', siMysql.svg],
     ['postgresql', siPostgresql.svg],
+    ['webpack', siWebpack.svg],
+    ['prettier', siPrettier.svg],
+    ['firebase apis', siFirebase.svg],
+    ['json', siJson.svg],
     ['html5', siHtml5.svg],
     ['css3', siCss.svg],
     ['bootstrap', siBootstrap.svg],
@@ -244,16 +258,66 @@ export class MeComponent implements OnInit, AfterViewInit {
 
   protected getTechnologyIcon(tech: string): LucideIcon | null {
     const normalized = tech.trim().toLowerCase();
-    if (normalized === 'rest apis') {
+    if (
+      normalized === 'rest apis' ||
+      normalized === 'rest api integration' ||
+      normalized === 'dependency injection' ||
+      normalized === 'state management' ||
+      normalized === 'native mobile integration'
+    ) {
       return LucideNetwork;
     }
     if (
       normalized.includes('jwt') ||
       normalized.includes('session') ||
       normalized.includes('rbac') ||
-      normalized.includes('role-based')
+      normalized.includes('role-based') ||
+      normalized.includes('route guard') ||
+      normalized.includes('authentication')
     ) {
       return LucideShield;
+    }
+    if (
+      normalized.includes('routing') ||
+      normalized.includes('lifecycle') ||
+      normalized.includes('reusable') ||
+      normalized.includes('component') ||
+      normalized.includes('spa') ||
+      normalized.includes('forms') ||
+      normalized.includes('cross-browser')
+    ) {
+      return LucideCode;
+    }
+    if (
+      normalized.includes('lazy loading') ||
+      normalized.includes('virtual scrolling') ||
+      normalized.includes('responsive') ||
+      normalized.includes('cross-platform') ||
+      normalized.includes('mobile ui') ||
+      normalized.includes('mobile application') ||
+      normalized.includes('android') ||
+      normalized.includes('ios') ||
+      normalized.includes('push notification') ||
+      normalized.includes('offline') ||
+      normalized.includes('fingerprint') ||
+      normalized.includes('language switching')
+    ) {
+      return LucideSmartphone;
+    }
+    if (
+      normalized === 'sql' ||
+      normalized === 'firebase apis' ||
+      normalized.includes('data caching')
+    ) {
+      return LucideDatabase;
+    }
+    if (
+      normalized.includes('performance') ||
+      normalized.includes('debugging') ||
+      normalized.includes('production support') ||
+      normalized.includes('ci/cd')
+    ) {
+      return LucideZap;
     }
     return null;
   }
@@ -345,11 +409,6 @@ export class MeComponent implements OnInit, AfterViewInit {
     if (element) {
       element.scrollIntoView({ behavior: this.prefersReducedMotion() ? 'auto' : 'smooth' });
     }
-  }
-
-  protected getContactUrl(): string {
-    const email = this.profile()?.email;
-    return email ? `mailto:${email}` : 'mailto:';
   }
 
   protected scrollToTop(): void {

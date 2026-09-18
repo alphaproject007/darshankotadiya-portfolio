@@ -6,7 +6,7 @@
       "start": "2026-05",
       "end": null
     },
-    "description": "Following organizational restructuring, I am currently exploring a stable long-term opportunity where I can contribute my frontend, mobile, and full-stack engineering experience while continuing to grow professionally.",
+    "description": "Following a company-wide restructuring, my role concluded in May 2026. I am currently exploring my next long-term opportunity where I can contribute my Angular, Ionic, frontend, and full-stack engineering experience.",
     "technologies": [],
     "highlights": []
   },
@@ -18,26 +18,30 @@
       "start": "2025-06",
       "end": "2026-04"
     },
-    "description": "Worked on Angular applications for configurable business workflows, reusable UI components, and dynamic forms across operations-focused enterprise features.",
+    "description": "Built and supported enterprise Angular applications integrated with Java/Spring Boot REST APIs across inventory, production, purchase, sales, and logistics workflows.",
     "technologies": [
       "Angular",
       "Angular Material",
+      "Java",
+      "Spring Boot",
       "RxJS",
-      "Reactive Forms",
+      "Dynamic Forms",
       "REST APIs",
       "JWT",
+      "Session Management",
       "RBAC",
       "Git",
+      "Bitbucket",
       "Jira",
       "Postman",
       "Jenkins",
       "GitHub Copilot"
     ],
     "highlights": [
-      "Built reusable UI components and data tables for enterprise workflow experiences.",
-      "Worked on dynamic forms covering inventory, production, purchase, sales, and logistics use cases.",
-      "Participated in requirements discussions, sprint ceremonies, code reviews, and client demos.",
-      "Supported production issues and backend API integration for operational continuity."
+      "Developed reusable Angular components, dynamic forms, data tables, routing, validation, and shared functionality.",
+      "Implemented API integration and role-based access patterns using JWT/session-based authentication and RBAC.",
+      "Worked with RxJS for asynchronous operations and supported debugging, testing, performance improvements, deployment, and production issues.",
+      "Collaborated with backend developers, QA, consultants, and clients using Git, Bitbucket, Jenkins, Jira, Postman, and GitHub Copilot."
     ]
   },
   {
@@ -48,7 +52,7 @@
       "start": "2024-03",
       "end": "2025-04"
     },
-    "description": "Developed Angular and Ionic applications for role-based student, teacher, parent, and admin workflows with reusable responsive components.",
+    "description": "Developed Angular and Ionic web/mobile applications with reusable responsive components, forms, dashboards, and navigation for role-based workflows.",
     "technologies": [
       "Angular",
       "Ionic",
@@ -56,18 +60,24 @@
       "Angular Material",
       "RxJS",
       "Reactive Forms",
+      "Capacitor",
+      "Android Studio",
+      "Xcode",
+      "Google Sign-In",
+      "Apple Sign-In",
       "REST APIs",
       "JWT",
       "RBAC",
       "Jasmine",
       "Karma",
-      "Route Guards"
+      "Route Guards",
+      "Mobile Deployment"
     ],
     "highlights": [
-      "Modernized Angular 14 to Angular 16 application architecture and module patterns.",
-      "Implemented routing, guards, reusable responsive UI, and role-based access controls.",
-      "Built workflows serving student, teacher, parent, and admin user journeys.",
-      "Worked with secure authentication flows and API-driven data interactions."
+      "Built reusable responsive components, forms, dashboards, navigation, and role-based workflows for applications used by 5000+ users.",
+      "Worked with Capacitor for native mobile interaction, including fingerprint authentication and Android/iOS builds.",
+      "Supported Android Studio, Xcode, mobile deployment, application version upgrades, and app-launch behavior for installed apps or Google Play/App Store redirects.",
+      "Integrated Google sign-in and Apple sign-in, and contributed to Jasmine/Karma testing and API-driven authentication flows."
     ]
   },
   {
@@ -78,7 +88,7 @@
       "start": "2022-08",
       "end": "2023-12"
     },
-    "description": "Contributed to Angular and Ionic applications for dashboards, alerts, and workflow-driven features across agriculture and field operations data.",
+    "description": "Contributed to Angular and Ionic applications for dashboards, forms, alerts, and workflow-driven mobile experiences across agriculture and field operations.",
     "technologies": [
       "Angular",
       "Ionic",
@@ -87,15 +97,20 @@
       "REST APIs",
       "RxJS",
       "Dashboards",
+      "Forms",
+      "Reusable Components",
       "Alerts",
       "Push Notifications",
-      "Offline Capabilities"
+      "Mobile Alerts",
+      "Offline Support",
+      "Data Caching",
+      "Language Switching",
+      "Android/iOS Deployment"
     ],
     "highlights": [
-      "Built dashboard and alerting workflows for weather, soil, and crop data.",
-      "Developed reusable components and API communication patterns for data-driven interfaces.",
-      "Supported debugging, deployment, and ongoing maintenance across application workflows.",
-      "Delivered mobile-ready experiences with offline support and notification features."
+      "Built dashboards and alerting workflows for weather, soil, and crop data with reusable components and forms.",
+      "Worked on push notifications, mobile alerts, offline support, data caching, and language switching for mobile application workflows.",
+      "Supported Android/iOS build and deployment activities, debugging, maintenance, and REST API integration."
     ]
   }
 ]

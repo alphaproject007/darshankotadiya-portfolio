@@ -84,7 +84,7 @@
             </button>
 
             <a
-              [href]="getContactUrl()"
+              href="mailto:kotadiyadarshan213@gmail.com"
               aria-label="Contact me by email"
               class="inline-flex w-full items-center justify-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold text-[var(--color-text)] transition-all duration-200 hover:bg-[var(--color-hover)] sm:w-auto"
               [style.borderColor]="'var(--color-border)'"
@@ -335,13 +335,13 @@
                 >
                   <div class="min-w-0">
                     <div class="text-xs font-semibold uppercase tracking-[0.18em] text-blue-500 dark:text-blue-400">
-                      {{ job.type === 'career-break' ? 'Career Break' : job.company }}
+                      {{ job.type === 'career-break' ? 'Career Transition' : job.company }}
                     </div>
 
                     <h3
                       class="mt-1 text-xl font-semibold text-[var(--color-text)]"
                     >
-                      {{ job.type === 'career-break' ? 'Exploring the next long-term opportunity' : job.position }}
+                      {{ job.type === 'career-break' ? 'Actively exploring the next long-term opportunity' : job.position }}
                     </h3>
                   </div>
 
@@ -696,7 +696,7 @@
           Download Resume
         </a>
 
-      <a [href]="getContactUrl()" class="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Contact me by email">
+      <a href="mailto:kotadiyadarshan213@gmail.com" class="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Contact me by email">
           <svg [lucideIcon]="mailIcon" class="h-4 w-4" aria-hidden="true"></svg>
         Contact Me
         </a>
