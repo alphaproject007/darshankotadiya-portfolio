@@ -14,6 +14,7 @@
     "id": "gemba-concepts",
     "company": "Gemba Concepts Pvt. Ltd.",
     "position": "Software Developer Engineer",
+    "location": "Bengaluru, Karnataka",
     "period": {
       "start": "2025-06",
       "end": "2026-04"
@@ -24,6 +25,7 @@
       "Angular Material",
       "Java",
       "Spring Boot",
+      "TypeScript",
       "RxJS",
       "Dynamic Forms",
       "REST APIs",
@@ -48,6 +50,7 @@
     "id": "swan-softweb-solutions",
     "company": "Swan Softweb Solutions",
     "position": "Angular Developer",
+    "location": "Ahmedabad, Gujarat",
     "period": {
       "start": "2024-03",
       "end": "2025-04"
@@ -63,8 +66,6 @@
       "Capacitor",
       "Android Studio",
       "Xcode",
-      "Google Sign-In",
-      "Apple Sign-In",
       "REST APIs",
       "JWT",
       "RBAC",
@@ -77,13 +78,14 @@
       "Built reusable responsive components, forms, dashboards, navigation, and role-based workflows for applications used by 5000+ users.",
       "Worked with Capacitor for native mobile interaction, including fingerprint authentication and Android/iOS builds.",
       "Supported Android Studio, Xcode, mobile deployment, application version upgrades, and app-launch behavior for installed apps or Google Play/App Store redirects.",
-      "Integrated Google sign-in and Apple sign-in, and contributed to Jasmine/Karma testing and API-driven authentication flows."
+      "Supported application version upgrades and contributed to Jasmine/Karma testing and API-driven authentication flows."
     ]
   },
   {
     "id": "tadvid-info-technologies",
     "company": "Tadvid Info Technologies",
     "position": "Software Engineer",
+    "location": "Ahmedabad, Gujarat",
     "period": {
       "start": "2022-08",
       "end": "2023-12"

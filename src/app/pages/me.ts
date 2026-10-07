@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, computed, DestroyRef, ElementRef, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { RouterLink } from '@angular/router';
 import {
   LucideArrowRight,
   LucideArrowUp,
@@ -60,7 +61,7 @@ import { calculateEmploymentMonths, formatEmploymentDuration } from '../core/uti
 @Component({
   selector: 'app-me',
   standalone: true,
-  imports: [CommonModule, LucideDynamicIcon],
+  imports: [CommonModule, RouterLink, LucideDynamicIcon],
   templateUrl: './me.html',
   styleUrl: './me.scss'
 })
@@ -79,7 +80,7 @@ export class MeComponent implements OnInit, AfterViewInit {
   private readonly footerVisible = signal(false);
   @ViewChild('siteFooter', { read: ElementRef })
   private footerElement?: ElementRef<HTMLElement>;
-  protected readonly resumeUrl = '/assets/resume/Darshan_Kotadiya_Ionic_Angular_Resume.pdf';
+  protected readonly resumeUrl = '/assets/resume/Darshan_kotadiya_Angular_Java_Developer_Resume.pdf';
   readonly currentYear = new Date().getFullYear();
   private readonly technologySvgCache = new Map<string, SafeHtml | null>();
 
@@ -143,9 +144,9 @@ export class MeComponent implements OnInit, AfterViewInit {
 
   protected readonly snapshotCards = computed(() => [
     { value: formatEmploymentDuration(calculateEmploymentMonths(this.experience())), detail: 'Professional experience' },
-    { value: 'Angular Focus', detail: 'Frontend engineering' },
-    { value: 'Web + Mobile', detail: 'Cross-platform delivery' },
-    { value: 'Enterprise Applications', detail: 'Business workflows' }
+    { value: 'Angular', detail: 'Primary frontend stack' },
+    { value: 'Ionic + Capacitor', detail: 'Cross-platform mobile' },
+    { value: 'REST APIs', detail: 'Frontend + backend integration' }
   ]);
 
   protected readonly mapPinIcon = LucideMapPin;
@@ -165,64 +166,74 @@ export class MeComponent implements OnInit, AfterViewInit {
     return fullName.split(' ');
   });
 
-  protected readonly coreStrengths = computed(() => {
-    const uniqueSkills = new Set<string>();
-    for (const category of this.skills()) {
-      for (const skill of category.skills ?? []) {
-        if (skill && skill.trim().length > 0) {
-          uniqueSkills.add(skill.trim());
-        }
-      }
-    }
-
-    return Array.from(uniqueSkills).slice(0, 12);
-  });
+  protected readonly coreStrengths = [
+    'Angular',
+    'TypeScript',
+    'Ionic',
+    'RxJS',
+    'NgRx / State Management',
+    'REST APIs',
+    'Capacitor',
+    'Authentication & Authorization',
+    'Dynamic Forms',
+    'Responsive Design'
+  ];
 
   readonly buildCapabilities = [
     {
-      title: 'Enterprise Web Applications',
+      title: 'Reusable Frontend Systems',
       tech: 'Angular / TypeScript',
       points: [
-        'Enterprise workflows',
-        'Reusable UI',
-        'Forms',
-        'Data-driven interfaces'
+        'Reusable Angular components',
+        'Shared UI patterns',
+        'Dynamic forms and data tables',
+        'Responsive interfaces'
       ],
       icon: LucideCode
     },
     {
-      title: 'Hybrid Mobile Applications',
-      tech: 'Angular + Ionic',
+      title: 'API-driven Applications',
+      tech: 'REST APIs / RxJS',
       points: [
-        'Web + Android + iOS application workflows',
-        'Responsive interfaces',
-        'Routing',
-        'Offline-ready product experiences'
+        'REST API integration',
+        'Async data flows with RxJS',
+        'Authentication',
+        'API-driven workflows'
+      ],
+      icon: LucideNetwork
+    },
+    {
+      title: 'Mobile Experiences',
+      tech: 'Ionic / Capacitor',
+      points: [
+        'Android/iOS delivery',
+        'Native device capabilities',
+        'Push notifications',
+        'Offline support'
       ],
       icon: LucideSmartphone
     },
     {
-      title: 'API-Driven Applications',
-      tech: 'REST APIs',
+      title: 'Enterprise Workflows',
+      tech: 'RBAC / data-driven applications',
       points: [
-        'Frontend integration',
-        'Backend service communication',
-        'Secure data flows',
-        'Operational product workflows'
+        'Role-based access',
+        'Business workflows',
+        'Dashboards and forms',
+        'Operational data interfaces'
       ],
       icon: LucideServer
     },
     {
-      title: 'Frontend Engineering',
-      tech: 'Angular architecture',
+      title: 'Quality & Delivery',
+      tech: 'Testing / production support',
       points: [
-        'Reusable components',
-        'Reactive Forms',
-        'RxJS',
-        'Performance',
-        'Responsive UI'
+        'Jasmine and Karma',
+        'Debugging',
+        'Performance improvements',
+        'CI/CD and production support'
       ],
-      icon: LucideLayers2
+      icon: LucideShield
     }
   ];
 

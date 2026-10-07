@@ -124,15 +124,6 @@ export class NavbarComponent {
     );
   }
 
-  protected getSocialUrl(social: SocialLink): string {
-    if (social.platform.toLowerCase() !== 'email') {
-      return social.url;
-    }
-
-    const email = social.url.replace(/^mailto:/i, '');
-    return `mailto:${email}`;
-  }
-
   protected getThemeIcon(): LucideIcon {
     return this.themeService.themeMode() === 'dark' ? LucideSun : LucideMoon;
   }

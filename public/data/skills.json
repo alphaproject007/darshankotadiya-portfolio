@@ -9,7 +9,7 @@
         "JavaScript (ES6+)",
         "RxJS",
         "NgRx / State Management",
-        "Signals",
+        "Angular Signals",
         "HTML5",
         "CSS3",
         "Bootstrap",
@@ -60,11 +60,11 @@
         "JWT Authentication",
         "Session Management",
         "Role-Based Access Control (RBAC)",
-        "Google Sign-In Integration",
-        "Apple Sign-In Integration",
+        "Google Sign-In",
+        "Apple Sign-In",
         "REST API Integration",
         "Firebase APIs",
-        "Native Mobile Integration"
+        "Native Device Integration"
       ]
     },
     {

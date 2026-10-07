@@ -5,6 +5,7 @@ export interface Experience {
   type?: ExperienceType;
   company?: string;
   position?: string;
+  location?: string;
   period: {
     start: string;
     end: string | null;

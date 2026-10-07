@@ -1,0 +1,53 @@
+:host {
+  display: block;
+}
+
+.contact-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contact-toast {
+  animation: contact-toast-in 180ms ease-out both;
+}
+
+.contact-toast-success {
+  border-color: rgba(34, 197, 94, 0.35);
+  background-color: rgba(34, 197, 94, 0.08);
+  color: #15803d;
+}
+
+.contact-toast-error {
+  border-color: rgba(239, 68, 68, 0.35);
+  background-color: rgba(239, 68, 68, 0.08);
+  color: #b91c1c;
+}
+
+:host-context(.dark) .contact-toast-success {
+  color: #86efac;
+}
+
+:host-context(.dark) .contact-toast-error {
+  color: #fca5a5;
+}
+
+@keyframes contact-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.35rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-toast {
+    animation: none;
+  }
+}

@@ -3,11 +3,12 @@
     "id": "gemba-connect",
     "company": "Gemba Concepts Pvt. Ltd.",
     "title": "Gemba Connect",
-    "description": "A low-code Angular platform with a Java-based backend, metadata-driven models, configurable workflows, dynamic forms, and RBAC.",
+    "description": "A scalable low-code platform built with Angular and a Java-based backend, using a metadata-driven approach to support configurable business applications and workflows.",
     "shortDescription": "Configurable enterprise workflows and metadata-driven operations.",
     "technologies": [
       "Angular",
       "Angular Material",
+      "Java",
       "RxJS",
       "Reactive Forms",
       "REST APIs",
@@ -29,7 +30,7 @@
     "id": "kenzol-erp",
     "company": "Gemba Concepts Pvt. Ltd.",
     "title": "Kenzol – Web & Mobile ERP Application",
-    "description": "An Angular and Ionic manufacturing ERP application covering inventory, BOM-based production planning, production, and logistics workflows.",
+    "description": "An Angular and Ionic manufacturing ERP application supporting workflows from raw-material procurement through production and final dispatch.",
     "shortDescription": "Manufacturing ERP workflows across web and mobile interfaces.",
     "technologies": [
       "Angular",
@@ -39,7 +40,10 @@
       "Angular Material",
       "Inventory",
       "Production",
-      "Logistics"
+      "Purchase",
+      "Sales",
+      "Logistics",
+      "RBAC"
     ],
     "period": {
       "start": "2025-02",
@@ -81,26 +85,29 @@
   {
     "id": "beacon",
     "company": "Swan Softweb Solutions",
-    "title": "Beacon",
-    "description": "An Angular/Ionic e-learning platform for courses, virtual classrooms, assessments, progress tracking, and student/teacher workflows.",
-    "shortDescription": "E-learning workflows for courses, assessments, and learner progress.",
+    "title": "Beacon — E-learning & Education Management Platform",
+    "description": "An Angular and Ionic-based e-learning and education management platform with role-based access, where the same connected platform provides different data and workflows based on the authenticated user's login and assigned access.",
+    "shortDescription": "One connected education platform with role-specific learning and academic workflows.",
     "technologies": [
       "Angular",
       "Ionic",
-      "REST APIs",
-      "RxJS",
-      "JWT",
-      "RBAC",
-      "TypeScript"
+      "Capacitor",
+      "Google Sign-In",
+      "Apple Sign-In",
+      "Fingerprint Authentication",
+      "Canvas",
+      "RBAC"
     ],
     "period": {
       "start": "2024-03",
       "end": "2025-04"
     },
     "highlights": [
-      "Delivered role-aware user journeys for learners, instructors, and administrators across academic workflows.",
-      "Built reusable responsive interfaces for courses, assessments, and progress tracking features.",
-      "Worked with secure authentication and API-driven data flows for learning activities and role-aware access."
+      "Role-based experience: the same platform dynamically presents relevant data and functionality based on the authenticated user's login and assigned access.",
+      "Parent access includes exam details, academic performance, family-linked student information, and fee-related information according to assigned access.",
+      "Student access includes virtual examinations, digital learning content, and interactive reading and annotation workflows.",
+      "Integrated an interactive Canvas-based reading and annotation experience supporting highlighting, borders, drawing, and other document interactions across touch, stylus, and laptop/PC use.",
+      "Implemented Google Sign-In, Apple Sign-In, and fingerprint authentication for cross-platform mobile workflows."
     ],
     "category": "hybrid"
   },
@@ -111,8 +118,8 @@
     "description": "A React frontend and Node.js backend for web-based code execution, authentication, personalized access, and real-time execution workflows.",
     "shortDescription": "Real-time coding workflows with authentication and personalized access.",
     "technologies": [
-      "React",
-      "Node.js",
+      "React (Basic)",
+      "Node.js (Basic)",
       "Authentication",
       "Real-Time Code Execution",
       "REST APIs",

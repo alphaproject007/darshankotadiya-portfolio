@@ -45,9 +45,12 @@
             </p>
           </div>
 
-          <p class="max-w-xl text-base leading-7 text-[var(--color-text-muted)]">
-            {{ profile()!.bio }}
-          </p>
+          <div class="max-w-xl space-y-3 text-base leading-7 text-[var(--color-text-muted)]">
+            <p>{{ profile()!.bio }}</p>
+            @if (profile()!.bioSecondary) {
+              <p>{{ profile()!.bioSecondary }}</p>
+            }
+          </div>
 
           <div class="space-y-3">
             <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
@@ -84,7 +87,7 @@
             </button>
 
             <a
-              href="mailto:kotadiyadarshan213@gmail.com"
+              routerLink="/contact"
               aria-label="Contact me by email"
               class="inline-flex w-full items-center justify-center gap-2 rounded-xl border px-5 py-3 text-sm font-semibold text-[var(--color-text)] transition-all duration-200 hover:bg-[var(--color-hover)] sm:w-auto"
               [style.borderColor]="'var(--color-border)'"
@@ -228,12 +231,28 @@
 
         <div class="space-y-4 text-base leading-7 text-[var(--color-text-muted)]">
           <p>
-            {{ profile()?.bio ?? 'I build responsive, component-driven interfaces with Angular and TypeScript for enterprise web and hybrid mobile applications.' }}
+            {{ profile()?.bio ?? 'Angular-focused software engineer with 3.6+ years of experience building responsive web and mobile applications using Angular, TypeScript, Ionic, RxJS, and REST APIs.' }}
           </p>
 
           <p>
-            Focus areas: reusable UI components, dynamic forms, REST/API integrations, authentication & authorization, and cross-platform delivery.
+            Across enterprise workflows, e-learning, manufacturing ERP, agriculture, and quality-management applications, I have worked on reusable UI components, dynamic forms, authentication, API integration, dashboards, and cross-platform mobile experiences.
           </p>
+
+          <p>
+            I also have working knowledge of Java/Spring Boot and basic React/React Native experience, allowing me to contribute across frontend, mobile, and backend integration layers.
+          </p>
+
+          <div>
+            <p class="font-semibold text-[var(--color-text)]">Focus areas</p>
+            <ul class="mt-2 grid gap-2 sm:grid-cols-2">
+              @for (focus of ['Reusable UI Components', 'Dynamic & Reactive Forms', 'REST/API Integration', 'Authentication & Authorization', 'Cross-Platform Mobile Delivery', 'Responsive Applications']; track focus) {
+                <li class="flex items-start gap-2">
+                  <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500" aria-hidden="true"></span>
+                  <span>{{ focus }}</span>
+                </li>
+              }
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -250,7 +269,7 @@
         </p>
 
         <div class="mt-5 flex flex-wrap gap-2">
-          @for (skill of coreStrengths(); track skill) {
+          @for (skill of coreStrengths; track skill) {
             <span
               class="inline-flex items-center rounded-full border px-3 py-1.5 text-sm text-[var(--color-text)] transition-colors duration-200"
               [style.borderColor]="'var(--color-border)'"
@@ -343,6 +362,9 @@
                     >
                       {{ job.type === 'career-break' ? 'Actively exploring the next long-term opportunity' : job.position }}
                     </h3>
+                    @if (job.location) {
+                      <p class="mt-1 text-sm text-[var(--color-text-muted)]">{{ job.location }}</p>
+                    }
                   </div>
 
                   <time
@@ -684,6 +706,9 @@
   <div class="w-full rounded-[1.75rem] border p-5 shadow-[0_12px_30px_rgba(15,23,42,0.04)] sm:p-6" [style.borderColor]="'var(--color-border)'" [style.backgroundColor]="'var(--color-surface)'">
     <p class="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-text-muted)]">Let's connect</p>
     <h3 class="mt-2 text-2xl font-semibold tracking-tight text-[var(--color-text)]">Software Engineer | Web, Mobile &amp; Backend Development</h3>
+    <p class="mx-auto mt-3 max-w-2xl text-sm leading-6 text-[var(--color-text-muted)]">
+      Open to opportunities where I can contribute my Angular, Ionic, frontend, mobile, and backend integration experience.
+    </p>
 
     <div class="mt-5 flex flex-wrap justify-center gap-3">
         <a [href]="resumeUrl" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" aria-label="View resume">
@@ -691,12 +716,12 @@
           View Resume
         </a>
 
-        <a [href]="resumeUrl" download class="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Download resume">
+        <a [href]="resumeUrl" download="Darshan_Kotadiya_Angular_Java_Developer_Resume.pdf" class="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Download resume">
           <svg [lucideIcon]="downloadIcon" class="h-4 w-4" aria-hidden="true"></svg>
           Download Resume
         </a>
 
-      <a href="mailto:kotadiyadarshan213@gmail.com" class="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Contact me by email">
+      <a routerLink="/contact" class="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-hover)]" [style.borderColor]="'var(--color-border)'" aria-label="Contact me">
           <svg [lucideIcon]="mailIcon" class="h-4 w-4" aria-hidden="true"></svg>
         Contact Me
         </a>

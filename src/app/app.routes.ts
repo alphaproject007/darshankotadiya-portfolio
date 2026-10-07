@@ -8,6 +8,7 @@ export const routes: Routes = [
     component: PortfolioShellComponent,
     children: [
       { path: '', component: MeComponent },
+      { path: 'contact', loadComponent: () => import('./pages/contact').then(module => module.ContactComponent) },
     ]
   }
 ];
